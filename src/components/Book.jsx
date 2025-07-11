@@ -74,10 +74,10 @@ const Book = () => {
       setIsCustomDragging(false)
       setIsDragging(false)
 
-      // Check if dropped in glass zone
-      const glassZone = document.getElementById("glass-zone")
-      if (glassZone) {
-        const glassRect = glassZone.getBoundingClientRect()
+      // Check if dropped anywhere on the glass image (page3.jpg)
+      const page3Background = document.querySelector(".page3-background")
+      if (page3Background) {
+        const backgroundRect = page3Background.getBoundingClientRect()
         const hammerElement = document.querySelector(".draggable-hammer")
 
         if (hammerElement) {
@@ -85,15 +85,16 @@ const Book = () => {
           const hammerCenterX = hammerRect.left + hammerRect.width / 2
           const hammerCenterY = hammerRect.top + hammerRect.height / 2
 
+          // Check if hammer touches any part of the glass image
           if (
-            hammerCenterX >= glassRect.left &&
-            hammerCenterX <= glassRect.right &&
-            hammerCenterY >= glassRect.top &&
-            hammerCenterY <= glassRect.bottom
+            hammerCenterX >= backgroundRect.left &&
+            hammerCenterX <= backgroundRect.right &&
+            hammerCenterY >= backgroundRect.top &&
+            hammerCenterY <= backgroundRect.bottom
           ) {
-            console.log("Hammer dropped in glass zone!")
+            console.log("Hammer touched the glass image!")
             setGlassBreakVisible(true)
-            setTimeout(() => setGlassBreakVisible(false), 4000)
+            // Glass crack stays visible - no auto-hide
           }
         }
       }
@@ -153,10 +154,10 @@ const Book = () => {
       setIsCustomDragging(false)
       setIsDragging(false)
 
-      // Check drop zone
-      const glassZone = document.getElementById("glass-zone")
-      if (glassZone) {
-        const glassRect = glassZone.getBoundingClientRect()
+      // Check if dropped anywhere on the glass image
+      const page3Background = document.querySelector(".page3-background")
+      if (page3Background) {
+        const backgroundRect = page3Background.getBoundingClientRect()
         const hammerElement = document.querySelector(".draggable-hammer")
 
         if (hammerElement) {
@@ -165,14 +166,14 @@ const Book = () => {
           const hammerCenterY = hammerRect.top + hammerRect.height / 2
 
           if (
-            hammerCenterX >= glassRect.left &&
-            hammerCenterX <= glassRect.right &&
-            hammerCenterY >= glassRect.top &&
-            hammerCenterY <= glassRect.bottom
+            hammerCenterX >= backgroundRect.left &&
+            hammerCenterX <= backgroundRect.right &&
+            hammerCenterY >= backgroundRect.top &&
+            hammerCenterY <= backgroundRect.bottom
           ) {
-            console.log("Hammer dropped in glass zone via touch!")
+            console.log("Hammer touched the glass image via touch!")
             setGlassBreakVisible(true)
-            setTimeout(() => setGlassBreakVisible(false), 4000)
+            // Glass crack stays visible - no auto-hide
           }
         }
       }
@@ -231,10 +232,14 @@ const Book = () => {
 
         {/* Page 3 - Interactive */}
         <div className="demoPage bg-white border-1 relative overflow-hidden">
-          {/* Background */}
-          <img src="/book-pages/page3.jpg" alt="Page 3" className="w-full h-full object-cover absolute inset-0 z-0" />
+          {/* Background Glass Image - This is the drop target */}
+          <img
+            src="/book-pages/page3.jpg"
+            alt="Page 3"
+            className="page3-background w-full h-full object-cover absolute inset-0 z-0"
+          />
 
-          {/* Full Page Glass Break Animation - Covers entire page */}
+          {/* Full Page Glass Break Animation - Replaces entire page when cracked */}
           {glassBreakVisible && (
             <div className="absolute inset-0 z-50 pointer-events-none">
               <img
@@ -242,59 +247,46 @@ const Book = () => {
                 alt="Glass Breaking"
                 className="w-full h-full object-cover"
                 style={{
-                  mixBlendMode: "multiply", // Blend with background
-                  opacity: 0.9,
+                  opacity: 1,
                 }}
               />
             </div>
           )}
 
-          {/* Interactive Zone */}
-          <div
-            className="interactive-zone absolute inset-0 z-5"
-            onMouseDown={handleInteractiveZoneEvents}
-            onTouchStart={handleInteractiveZoneEvents}
-            onMouseMove={handleInteractiveZoneEvents}
-            onTouchMove={handleInteractiveZoneEvents}
-          >
-            {/* Glass Drop Zone */}
+          {/* Interactive Zone - Only visible when glass is NOT cracked */}
+          {!glassBreakVisible && (
             <div
-              id="glass-zone"
-              className={`absolute top-[55%] left-[45%] w-28 h-28 border-2 border-dashed z-10 transition-all duration-200 ${
-                isDragging
-                  ? "border-green-400 bg-green-100 bg-opacity-50 scale-110 shadow-lg"
-                  : "border-blue-300 bg-blue-50 bg-opacity-30"
-              }`}
+              className="interactive-zone absolute inset-0 z-5"
+              onMouseDown={handleInteractiveZoneEvents}
+              onTouchStart={handleInteractiveZoneEvents}
+              onMouseMove={handleInteractiveZoneEvents}
+              onTouchMove={handleInteractiveZoneEvents}
             >
-              <div className="w-full h-full flex items-center justify-center text-xs font-semibold text-gray-700">
-                {isDragging ? "Drop Here!" : "Glass Zone"}
-              </div>
+              {/* Draggable Hammer */}
+              <img
+                src="/book-pages/hammer.png"
+                alt="Hammer"
+                className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${
+                  isDragging ? "cursor-grabbing scale-110 shadow-2xl" : "cursor-grab hover:scale-105"
+                }`}
+                style={{
+                  left: `${hammerPosition.x}%`,
+                  top: `${hammerPosition.y}%`,
+                  userSelect: "none",
+                  WebkitUserSelect: "none",
+                  pointerEvents: "auto",
+                  filter: isDragging ? "drop-shadow(0 10px 20px rgba(0,0,0,0.3))" : "none",
+                }}
+                onMouseDown={handleHammerMouseDown}
+                onTouchStart={handleTouchStart}
+                draggable={false}
+              />
             </div>
-
-            {/* Draggable Hammer */}
-            <img
-              src="/book-pages/hammer.png"
-              alt="Hammer"
-              className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${
-                isDragging ? "cursor-grabbing scale-110 shadow-2xl" : "cursor-grab hover:scale-105"
-              }`}
-              style={{
-                left: `${hammerPosition.x}%`,
-                top: `${hammerPosition.y}%`,
-                userSelect: "none",
-                WebkitUserSelect: "none",
-                pointerEvents: "auto",
-                filter: isDragging ? "drop-shadow(0 10px 20px rgba(0,0,0,0.3))" : "none",
-              }}
-              onMouseDown={handleHammerMouseDown}
-              onTouchStart={handleTouchStart}
-              draggable={false}
-            />
-          </div>
+          )}
         </div>
 
-        {/* Pages 4-10 */}
-        {Array.from({ length: 7 }, (_, i) => (
+        {/* Pages 4-18 */}
+        {Array.from({ length: 15 }, (_, i) => (
           <div key={i + 4} className="demoPage bg-blue-50 border-1">
             <div className="flex justify-center items-center w-full h-full">
               <img src={`/book-pages/page${i + 4}.jpg`} alt={`Page ${i + 4}`} className="w-full h-full object-cover" />
