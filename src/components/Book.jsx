@@ -249,11 +249,11 @@ const Book = () => {
 
           {/* Full Page Glass Break Animation - Replaces entire page when cracked */}
           {glassBreakVisible && (
-            <div className="absolute inset-0 z-50 pointer-events-none">
+            <div className="absolute inset-0 z-50 pointer-events-none ">
               <img
                 src="/book-pages/glass crack.gif"
                 alt="Glass Breaking"
-                className="w-full h-full object-cover"
+                className="w-[73%] h-[33%] mx-auto top-57 relative"
                 style={{
                   opacity: 1,
                 }}
@@ -274,7 +274,7 @@ const Book = () => {
               <img
                 src="/book-pages/hammer.png"
                 alt="Hammer"
-                className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${isDragging ? "cursor-grabbing scale-110 shadow-2xl" : "cursor-grab hover:scale-105"
+                className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${isDragging ? "cursor-grabbing scale-110 " : "cursor-grab hover:scale-105"
                   }`}
                 style={{
                   left: `${hammerPosition.x}%`,
