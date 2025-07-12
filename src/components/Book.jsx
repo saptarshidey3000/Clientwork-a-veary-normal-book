@@ -1,4 +1,3 @@
-"use client"
 
 import { useRef, useState, useCallback } from "react"
 import HTMLFlipBook from "react-pageflip"
@@ -10,6 +9,7 @@ const Book = () => {
   const [hammerPosition, setHammerPosition] = useState({ x: 10, y: 20 })
   const [isCustomDragging, setIsCustomDragging] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
+  const [currentPage, setCurrentPage] = useState(0);
 
   // Safely disable/enable flip book
   const disableFlipBook = useCallback(() => {
@@ -18,6 +18,11 @@ const Book = () => {
       bookRef.current.style.touchAction = "none"
     }
   }, [])
+
+  const handleFlip = (e) => {
+    setCurrentPage(e.data);
+    console.log(currentPage) // ✅ Update page number on flip
+  };
 
   const enableFlipBook = useCallback(() => {
     if (bookRef.current && bookRef.current.style) {
@@ -214,7 +219,10 @@ const Book = () => {
         drawShadow={true}
         maxShadowOpacity={0.5}
         showCover={true}
-        disableClick={isDragging}
+        onFlip={handleFlip}
+        disableFlipByClick={true}
+
+
       >
         {/* Page 1 */}
         <div className="demoPage bg-blue-50 border-1">
@@ -266,9 +274,8 @@ const Book = () => {
               <img
                 src="/book-pages/hammer.png"
                 alt="Hammer"
-                className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${
-                  isDragging ? "cursor-grabbing scale-110 shadow-2xl" : "cursor-grab hover:scale-105"
-                }`}
+                className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${isDragging ? "cursor-grabbing scale-110 shadow-2xl" : "cursor-grab hover:scale-105"
+                  }`}
                 style={{
                   left: `${hammerPosition.x}%`,
                   top: `${hammerPosition.y}%`,
