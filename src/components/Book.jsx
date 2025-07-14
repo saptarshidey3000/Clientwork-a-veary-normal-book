@@ -237,6 +237,7 @@ const Book = () => {
             <img src="/book-pages/page2.jpg" alt="Page 2" className="w-full h-full object-cover" />
           </div>
         </div>
+        
 
         {/* Page 3 - Interactive */}
         <div className="demoPage bg-white border-1 relative overflow-hidden">
@@ -299,7 +300,36 @@ const Book = () => {
               <img src={`/book-pages/page${i + 4}.jpg`} alt={`Page ${i + 4}`} className="w-full h-full object-cover" />
             </div>
           </div>
-        ))}
+          ))}
+
+          {/*page 19*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page19.jpg" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 20 - 51*/}
+         {Array.from({ length: 32 }, (_, i) => (
+          <div key={i + 4} className="demoPage bg-blue-50 border-1">
+            <div className="flex justify-center items-center w-full h-full">
+              <img src={`/book-pages/page${i + 20}.jpg`} alt={`Page ${i + 20}`} className="w-full h-full object-cover" />
+            </div>
+          </div>
+          ))}
+
+        {/*page 52*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page19.jpg" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+        {/*page 52*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page19.jpg" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
       </HTMLFlipBook>
     </div>
   )
