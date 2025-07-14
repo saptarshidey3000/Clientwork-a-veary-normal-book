@@ -321,18 +321,125 @@ const Book = () => {
         {/*page 19*/}
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page19.jpg" alt="Page 19" className="w-full h-full object-cover" />
+            <img src="/idioms/CATFISH.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
 
-        {/*page 20 - 51*/}
-        {Array.from({ length: 32 }, (_, i) => (
-          <div key={i + 20} className="demoPage bg-blue-50 border-1">
+
+
+        {/*page 20*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page20.jpg" alt="Page 20" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 21*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/idioms/CHEESECAKE.gif" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 22*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page22.jpg" alt="Page 22" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 23*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/idioms/DOUGHNUT.gif" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 24*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page24.jpg" alt="Page 24" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 25*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/idioms/EARWORM.gif" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 26*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page26.jpg" alt="Page 26" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 27*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/idioms/GREYSCALE.gif" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+
+        {/*page 28*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page28.jpg" alt="Page 28" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 29*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/idioms/RAINBOW.gif" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 30*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page30.jpg" alt="Page 30" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 31*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/idioms/JELLYFISH.gif" alt="Page 19" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+
+        {/*page 32*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page32.jpg" alt="Page 32" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        {/*page 33*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src="/book-pages/page33.jpg" alt="Page 33" className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+
+
+
+        {/*page 34 - 52*/}
+        {Array.from({ length: 18 }, (_, i) => (
+          <div key={i + 34} className="demoPage bg-blue-50 border-1">
             <div className="flex justify-center items-center w-full h-full">
-              <img src={`/book-pages/page${i + 20}.jpg`} alt={`Page ${i + 20}`} className="w-full h-full object-cover" />
+              <img src={`/book-pages/page${i + 34}.jpg`} alt={`Page ${i + 34}`} className="w-full h-full object-cover" />
             </div>
           </div>
         ))}
+
+
 
         {/*page 52*/}
         {/* Page 52 with clean background and layered beans */}
@@ -394,7 +501,6 @@ const Book = () => {
         </div>
 
 
-
         {/*page 53*/}
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
@@ -438,6 +544,80 @@ const Book = () => {
 
           </div>
         </div>
+
+        {/*page 54 - 61*/}
+        {Array.from({ length: 8 }, (_, i) => (
+          <div key={i + 54} className="demoPage bg-blue-50 border-1">
+            <div className="flex justify-center items-center w-full h-full">
+              <img src={`/book-pages/page${i + 54}.jpg`} alt={`Page ${i + 54}`} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        ))}
+
+        {/*page 62-63 elephant section*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            elephant
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            elephant
+          </div>
+        </div>
+
+        {/*page 64 - 73*/}
+        {Array.from({ length: 10 }, (_, i) => (
+          <div key={i + 64} className="demoPage bg-blue-50 border-1">
+            <div className="flex justify-center items-center w-full h-full">
+              <img src={`/book-pages/page${i + 64}.jpg`} alt={`Page ${i + 64}`} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        ))}
+
+        {/*page 74-75 ear section*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            ear
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            ear
+          </div>
+        </div>
+
+        {/*page 76-77 randomizer section*/}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            Randomizer
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            Randomizer
+          </div>
+        </div>
+
+        {/*page 78-79 apple eye */}
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            <img src={`/book-pages/page104.jpg`} alt={`Page 104`} className="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 border-1">
+          <div className="flex justify-center items-center w-full h-full">
+            Apple eye picture
+          </div>
+        </div>
+
+
+
+
       </HTMLFlipBook>
     </div>
   )
