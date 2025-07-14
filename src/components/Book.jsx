@@ -309,25 +309,61 @@ const Book = () => {
           </div>
         </div>
 
-        {/*page 20 - 52*/}
-         {Array.from({ length: 33 }, (_, i) => (
-          <div key={i + 4} className="demoPage bg-blue-50 border-1">
+        {/*page 20 - 51*/}
+         {Array.from({ length: 32 }, (_, i) => (
+          <div key={i + 20} className="demoPage bg-blue-50 border-1">
             <div className="flex justify-center items-center w-full h-full">
-              <img src={`/book-pages/page${i + 21}.jpg`} alt={`Page ${i + 21}`} className="w-full h-full object-cover" />
+              <img src={`/book-pages/page${i + 20}.jpg`} alt={`Page ${i + 20}`} className="w-full h-full object-cover" />
             </div>
           </div>
           ))}
+
+        {/*page 52*/}
+{/* Page 52 with clean background and layered beans */}
+<div className="demoPage bg-white border-1 relative overflow-hidden">
+  {/* Clean plate background */}
+  <img
+    src="/beans/clean plate bg.png"
+    alt="Clean Page"
+    className="w-full h-full object-cover absolute inset-0 z-0"
+  />
+
+  {/* Beans - with individual size control */}
+  {[
+    { id: 1, src: "/beans/Layer 1.png", x: 28, y: 30, rotation: 2, width: 90, height: 80 },
+    { id: 2, src: "/beans/Layer 2.png", x: 47, y: 30, rotation: 0, width: 60, height: 80 },
+    { id: 3, src: "/beans/Layer 3.png", x: 60, y: 30, rotation: 3, width: 75, height: 90 },
+    { id: 4, src: "/beans/Layer 4.png", x: 28, y: 44, rotation: 2, width: 60, height: 80 },
+    { id: 5, src: "/beans/Layer 5.png", x: 40, y: 40, rotation: -5, width: 70, height: 80 },
+    { id: 6, src: "/beans/Layer 6.png", x: 55, y: 45, rotation: -3, width: 77, height: 53 },
+    { id: 7, src: "/beans/Layer 7.png", x: 56, y: 54, rotation: 1, width: 72, height: 80 },
+    { id: 8, src: "/beans/Layer 8.png", x: 52, y: 66, rotation: 90, width: 55, height: 90, mirror: true },
+    { id: 9, src: "/beans/Layer 9.png", x: 41, y: 53.5, rotation: 3, width: 70, height: 90 },
+    { id: 10, src: "/beans/Layer 10.png", x: 29, y: 60, rotation: 1, width: 70, height: 80 },
+  ].map(bean => (
+    <img
+      key={bean.id}
+      src={bean.src}
+      alt={`Bean ${bean.id}`}
+      className="absolute cursor-pointer transition-all duration-200"
+    style={{
+  left: `${bean.x}%`,
+  top: `${bean.y}%`,
+  width: `${bean.width}px`,
+  height: `${bean.height}px`,
+  transform: `rotate(${bean.rotation}deg) ${bean.mirror ? 'scaleX(-1)' : ''}`,
+  zIndex: 10,
+}}
+    />
+  ))}
+</div>
+
+
 
         {/*page 53*/}
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/book-pages/page53.jpg" alt="Page 53" className="w-full h-full object-cover" />
-          </div>
-        </div>
-        {/*page 54*/}
-        <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page54.jpg" alt="Page 54" className="w-full h-full object-cover" />
           </div>
         </div>
       </HTMLFlipBook>
