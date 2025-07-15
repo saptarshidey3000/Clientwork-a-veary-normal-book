@@ -468,7 +468,7 @@ const Book = () => {
             return (
 
               <AnimatePresence>
-                return !isClicked && (
+                return !isClicked && 
                 <motion.img
                   key={`bean-${bean.id}`}
                   src={bean.src}
@@ -577,15 +577,50 @@ const Book = () => {
         ))}
 
         {/*page 74-75 ear section*/}
-        <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            ear
-          </div>
-        </div>
+{/* Page 74 - Centered Ear Sticker Layout */}
+<div className="demoPage bg-blue-50 border-1 relative overflow-hidden">
+  {/* Clean Plate Background */}
+  <img
+    src="/ears/clean plate bg.png"
+    alt="Page 74"
+    className="w-full h-full object-cover absolute inset-0 z-0"
+  />
+
+  {/* Centered Container for Ears */}
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[60%] relative">
+    {[
+      { id: 23, x: 0, y: 0 },
+      { id: 22, x: 25, y: 0 },
+      { id: 21, x: 50, y: 0 },
+
+      { id: 18, x: 0, y: 35 },
+      { id: 19, x: 25, y: 35 },
+      { id: 20, x: 50, y: 35 },
+
+      { id: 17, x: 80, y: 35 },
+      { id: 16, x: 20, y: 70 },
+      { id: 15, x: 60, y: 70 },
+    ].map((ear) => (
+      <img
+        key={ear.id}
+        src={`/ears/Layer ${ear.id}.png`}
+        alt={`Ear ${ear.id}`}
+        className="absolute w-10 h-auto"
+        style={{
+          left: `${ear.x}%`,
+          top: `${ear.y}%`,
+          zIndex: 10,
+        }}
+      />
+    ))}
+  </div>
+</div>
+
+
 
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
-            ear
+            <img src="/book-pages/page75.jpg" alt="Page 75" className="w-full h-full object-cover" />
           </div>
         </div>
 
