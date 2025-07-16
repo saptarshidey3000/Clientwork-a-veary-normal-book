@@ -2,9 +2,11 @@
 import { useRef, useState, useCallback } from "react"
 import HTMLFlipBook from "react-pageflip"
 import { motion, AnimatePresence } from "framer-motion"
+
 const Book = () => {
   const bookRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
+
   const [glassBreakVisible, setGlassBreakVisible] = useState(false)
   const [hammerPosition, setHammerPosition] = useState({ x: 10, y: 20 })
   const [isCustomDragging, setIsCustomDragging] = useState(false)
@@ -12,13 +14,36 @@ const Book = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [clickedBeans, setClickedBeans] = useState([]);
   const [randomNumbers, setRandomNumbers] = useState([77, 77, 77]);
+  const [randomNumbers1, setRandomNumbers1] = useState([77, 77, 77]);
+  const [randomNumbers2, setRandomNumbers2] = useState([77, 77, 77]);
+
+
   const Randomizer = [77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103]
   const [show, setShow] = useState(true);
+
+
 
   const getRandomNumbers = () => {
     const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 3);
     setRandomNumbers(selected);
+
+  };
+
+  const getRandomNumbers1 = () => {
+    const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 3);
+
+    setRandomNumbers1(selected);
+
+  };
+
+  const getRandomNumbers2 = () => {
+    const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 3);
+
+
+    setRandomNumbers2(selected);
   };
 
   const bounceOffVariant = {
@@ -44,7 +69,8 @@ const Book = () => {
 
   const handleFlip = (e) => {
     setCurrentPage(e.data);
-    console.log(currentPage) // ✅ Update page number on flip
+
+    console.log(currentPage); // ✅ Update page number on flip
   };
 
   const enableFlipBook = useCallback(() => {
@@ -76,7 +102,7 @@ const Book = () => {
     (e) => {
       if (!isCustomDragging) return
 
-      e.preventDefault()
+
       e.stopPropagation()
 
       const interactiveZone = document.querySelector(".interactive-zone")
@@ -104,21 +130,26 @@ const Book = () => {
 
       // Check if dropped anywhere on the glass image (page3.jpg)
       const page3Background = document.querySelector(".page3-background")
+      console.log(page3Background.getBoundingClientRect())
       if (page3Background) {
         const backgroundRect = page3Background.getBoundingClientRect()
+
         const hammerElement = document.querySelector(".draggable-hammer")
 
         if (hammerElement) {
           const hammerRect = hammerElement.getBoundingClientRect()
           const hammerCenterX = hammerRect.left + hammerRect.width / 2
           const hammerCenterY = hammerRect.top + hammerRect.height / 2
-
+          const adjustedTop = 247.87
+          const adjustedBottom = 500
+          const adjustedLeft = 818.64
+          const adjustedRight = 1217.36
           // Check if hammer touches any part of the glass image
           if (
-            hammerCenterX >= backgroundRect.left &&
-            hammerCenterX <= backgroundRect.right &&
-            hammerCenterY >= backgroundRect.top &&
-            hammerCenterY <= backgroundRect.bottom
+            hammerCenterX >= adjustedLeft &&
+            hammerCenterX <= adjustedRight &&
+            hammerCenterY >= adjustedTop &&
+            hammerCenterY <= adjustedBottom
           ) {
             console.log("Hammer touched the glass image!")
             setGlassBreakVisible(true)
@@ -216,7 +247,7 @@ const Book = () => {
     (e) => {
       if (isDragging) {
         e.stopPropagation()
-        e.preventDefault()
+
       }
     },
     [isDragging],
@@ -250,7 +281,9 @@ const Book = () => {
         {/* Page 1 */}
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
+
             <img src="/book-pages/page1.jpg" alt="Page 1" className="w-full h-full object-cover" />
+
           </div>
         </div>
 
@@ -324,6 +357,7 @@ const Book = () => {
             </div>
           </div>
         ))}
+
 
         {/*page 19*/}
         <div className="demoPage bg-blue-50 border-1">
@@ -635,25 +669,25 @@ const Book = () => {
         {/*page 76-77 randomizer section*/}
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
-            <button
+            {/* <button
               onClick={getRandomNumbers}
               className="bg-blue-500 text-white px-4 py-2 rounded"
             >
               Randomize
-            </button>
+            </button> */}
           </div>
         </div>
 
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full flex-col">
-            <div className="border-1 w-full h-1/3 absolute overflow-hidden top-0">
+            <div className="border-1 w-full h-1/3 absolute overflow-hidden top-0" onClick={getRandomNumbers}>
               <img src={`/book-pages/page${randomNumbers[0]}.jpg`} alt={`Page 77`} className="w-[300%] h-[300%]  relative " />
             </div>
-            <div className="border-1 w-full h-1/3">
-              <img src={`/book-pages/page${randomNumbers[1]}.jpg`} alt={`Page 79`} className="w-full h-full object-cover" />
+            <div className="border-1 w-full h-1/3" onClick={getRandomNumbers1}>
+              <img src={`/book-pages/page${randomNumbers1[1]}.jpg`} alt={`Page 79`} className="w-full h-full object-cover" />
             </div>
-            <div className="border-1 w-full h-1/3 absolute overflow-hidden bottom-0">
-              <img src={`/book-pages/page${randomNumbers[2]}.jpg`} alt={`Page 81`} className=" w-[300%] h-[300%] relative bottom-99" />
+            <div className="border-1 w-full h-1/3 absolute overflow-hidden bottom-0" onClick={getRandomNumbers2}>
+              <img src={`/book-pages/page${randomNumbers2[2]}.jpg`} alt={`Page 81`} className=" w-[300%] h-[300%] relative bottom-99" />
             </div>
           </div>
         </div>
