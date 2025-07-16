@@ -11,8 +11,15 @@ const Book = () => {
   const dragOffset = useRef({ x: 0, y: 0 })
   const [currentPage, setCurrentPage] = useState(0);
   const [clickedBeans, setClickedBeans] = useState([]);
-
+  const [randomNumbers, setRandomNumbers] = useState([77, 77, 77]);
+  const Randomizer = [77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103]
   const [show, setShow] = useState(true);
+
+  const getRandomNumbers = () => {
+    const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 3);
+    setRandomNumbers(selected);
+  };
 
   const bounceOffVariant = {
     initial: { opacity: 1, scale: 1, y: 0 },
@@ -468,7 +475,7 @@ const Book = () => {
             return (
 
               <AnimatePresence>
-                return !isClicked && 
+                return !isClicked &&
                 <motion.img
                   key={`bean-${bean.id}`}
                   src={bean.src}
@@ -577,44 +584,45 @@ const Book = () => {
         ))}
 
         {/*page 74-75 ear section*/}
-{/* Page 74 - Centered Ear Sticker Layout */}
-<div className="demoPage bg-blue-50 border-1 relative overflow-hidden">
-  {/* Clean Plate Background */}
-  <img
-    src="/ears/clean plate bg.png"
-    alt="Page 74"
-    className="w-full h-full object-cover absolute inset-0 z-0"
-  />
+        {/* Page 74 - Centered Ear Sticker Layout */}
+        <div className="demoPage bg-blue-50 border-1 relative overflow-hidden">
+          {/* Clean Plate Background */}
+          <img
+            src="/ears/clean plate bg.png"
+            alt="Page 74"
+            className="w-full h-full object-cover absolute inset-0 z-0"
+          />
 
-  {/* Centered Container for Ears */}
-  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[60%] relative">
-    {[
-      { id: 23, x: 0, y: 0 },
-      { id: 22, x: 25, y: 0 },
-      { id: 21, x: 50, y: 0 },
+          {/* Centered Container for Ears */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[60%] ">
+            {[
+              { id: 23, x: 0, y: 0 },
+              { id: 22, x: 25, y: 0 },
+              { id: 21, x: 50, y: 0 },
 
-      { id: 18, x: 0, y: 35 },
-      { id: 19, x: 25, y: 35 },
-      { id: 20, x: 50, y: 35 },
+              { id: 18, x: 0, y: 35 },
+              { id: 19, x: 25, y: 35 },
+              { id: 20, x: 50, y: 35 },
 
-      { id: 17, x: 80, y: 35 },
-      { id: 16, x: 20, y: 70 },
-      { id: 15, x: 60, y: 70 },
-    ].map((ear) => (
-      <img
-        key={ear.id}
-        src={`/ears/Layer ${ear.id}.png`}
-        alt={`Ear ${ear.id}`}
-        className="absolute w-10 h-auto"
-        style={{
-          left: `${ear.x}%`,
-          top: `${ear.y}%`,
-          zIndex: 10,
-        }}
-      />
-    ))}
-  </div>
-</div>
+              { id: 17, x: 80, y: 35 },
+              { id: 16, x: 20, y: 70 },
+              { id: 15, x: 60, y: 70 },
+            ].map((ear) => (
+              <img
+                key={ear.id}
+                src={`/ears/Layer ${ear.id}.png`}
+                alt={`Ear ${ear.id}`}
+                className="absolute w-10 h-auto"
+                style={{
+                  left: `${ear.x}%`,
+                  top: `${ear.y}%`,
+                  zIndex: 10,
+                }}
+
+              />
+            ))}
+          </div>
+        </div>
 
 
 
@@ -627,13 +635,26 @@ const Book = () => {
         {/*page 76-77 randomizer section*/}
         <div className="demoPage bg-blue-50 border-1">
           <div className="flex justify-center items-center w-full h-full">
-            Randomizer
+            <button
+              onClick={getRandomNumbers}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Randomize
+            </button>
           </div>
         </div>
 
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            Randomizer
+          <div className="flex justify-center items-center w-full h-full flex-col">
+            <div className="border-1 w-full h-1/3 absolute overflow-hidden top-0">
+              <img src={`/book-pages/page${randomNumbers[0]}.jpg`} alt={`Page 77`} className="w-[300%] h-[300%]  relative " />
+            </div>
+            <div className="border-1 w-full h-1/3">
+              <img src={`/book-pages/page${randomNumbers[1]}.jpg`} alt={`Page 79`} className="w-full h-full object-cover" />
+            </div>
+            <div className="border-1 w-full h-1/3 absolute overflow-hidden bottom-0">
+              <img src={`/book-pages/page${randomNumbers[2]}.jpg`} alt={`Page 81`} className=" w-[300%] h-[300%] relative bottom-99" />
+            </div>
           </div>
         </div>
 
