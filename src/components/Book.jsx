@@ -8,6 +8,8 @@ const Book = () => {
   const [isDragging, setIsDragging] = useState(false)
 
   const [glassBreakVisible, setGlassBreakVisible] = useState(false)
+  const hammerRef = useRef(null);
+  const hammerPositionRef = useRef({ x: 10, y: 20 });
   const [hammerPosition, setHammerPosition] = useState({ x: 10, y: 20 })
   const [isCustomDragging, setIsCustomDragging] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
@@ -115,7 +117,10 @@ const Book = () => {
       const clampedX = Math.max(0, Math.min(85, newX))
       const clampedY = Math.max(0, Math.min(85, newY))
 
-      setHammerPosition({ x: clampedX, y: clampedY })
+
+      // Set the style directly
+      hammerRef.current.style.left = `${clampedX}%`;
+      hammerRef.current.style.top = `${clampedY}%`;
     },
     [isCustomDragging],
   )
@@ -200,7 +205,8 @@ const Book = () => {
       const clampedX = Math.max(0, Math.min(85, newX))
       const clampedY = Math.max(0, Math.min(85, newY))
 
-      setHammerPosition({ x: clampedX, y: clampedY })
+      hammerRef.current.style.left = `${clampedX}%`;
+      hammerRef.current.style.top = `${clampedY}%`;
     },
     [isCustomDragging],
   )
@@ -329,9 +335,10 @@ const Book = () => {
             >
               {/* Draggable Hammer */}
               <img
+                ref={hammerRef}
                 src="/book-pages/hammer.png"
                 alt="Hammer"
-                className={`draggable-hammer absolute w-20 z-20 transition-all duration-200 ${isDragging ? "cursor-grabbing scale-110 " : "cursor-grab hover:scale-105"
+                className={`draggable-hammer absolute w-20 z-20  ${isDragging ? "cursor-grabbing scale-130 " : "cursor-grab hover:scale-105"
                   }`}
                 style={{
                   left: `${hammerPosition.x}%`,
@@ -339,11 +346,11 @@ const Book = () => {
                   userSelect: "none",
                   WebkitUserSelect: "none",
                   pointerEvents: "auto",
-                  filter: isDragging ? "drop-shadow(0 10px 20px rgba(0,0,0,0.3))" : "none",
+                  filter: isDragging ? "none" : "none",
                 }}
                 onMouseDown={handleHammerMouseDown}
                 onTouchStart={handleTouchStart}
-                draggable={false}
+
               />
             </div>
           )}
