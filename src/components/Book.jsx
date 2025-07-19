@@ -1,53 +1,20 @@
-
 import { useRef, useState, useCallback } from "react"
 import HTMLFlipBook from "react-pageflip"
 import { motion, AnimatePresence } from "framer-motion"
+import BookPage from "./BookPage"
+import RandomizerPage from "./RandomizerPage"
+import { SpillTheBeansFirstPage, SpillTheBeansSecondPage } from "./SpillTheBeans"
 
 const Book = () => {
   const bookRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
-
   const [glassBreakVisible, setGlassBreakVisible] = useState(false)
   const hammerRef = useRef(null);
-  const hammerPositionRef = useRef({ x: 10, y: 20 });
   const [hammerPosition, setHammerPosition] = useState({ x: 10, y: 20 })
   const [isCustomDragging, setIsCustomDragging] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const [currentPage, setCurrentPage] = useState(0);
   const [clickedBeans, setClickedBeans] = useState([]);
-  const [randomNumbers, setRandomNumbers] = useState([77, 77, 77]);
-  const [randomNumbers1, setRandomNumbers1] = useState([77, 77, 77]);
-  const [randomNumbers2, setRandomNumbers2] = useState([77, 77, 77]);
-
-
-  const Randomizer = [77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103]
-  const [show, setShow] = useState(true);
-
-
-
-  const getRandomNumbers = () => {
-    const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
-    setRandomNumbers(selected);
-
-  };
-
-  const getRandomNumbers1 = () => {
-    const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
-
-    setRandomNumbers1(selected);
-
-  };
-
-  const getRandomNumbers2 = () => {
-    const shuffled = [...Randomizer].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
-
-
-    setRandomNumbers2(selected);
-  };
-
   const bounceOffVariant = {
     initial: { opacity: 1, scale: 1, y: 0 },
     exit: {
@@ -60,7 +27,6 @@ const Book = () => {
       },
     },
   };
-
   // Safely disable/enable flip book
   const disableFlipBook = useCallback(() => {
     if (bookRef.current && bookRef.current.style) {
@@ -71,7 +37,6 @@ const Book = () => {
 
   const handleFlip = (e) => {
     setCurrentPage(e.data);
-
     console.log(currentPage); // ✅ Update page number on flip
   };
 
@@ -286,18 +251,12 @@ const Book = () => {
       >
         {/* Page 1 */}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-
-            <img src="/book-pages/page1.jpg" alt="Page 1" className="w-full h-full object-cover" />
-
-          </div>
+          <BookPage pageNo={1} />
         </div>
 
         {/* Page 2 */}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page2.jpg" alt="Page 2" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={2} />
         </div>
 
 
@@ -359,9 +318,7 @@ const Book = () => {
         {/* Pages 4-18 */}
         {Array.from({ length: 15 }, (_, i) => (
           <div key={i + 4} className="demoPage bg-blue-50 border-1">
-            <div className="flex justify-center items-center w-full h-full">
-              <img src={`/book-pages/page${i + 4}.jpg`} alt={`Page ${i + 4}`} className="w-full h-full object-cover" />
-            </div>
+            <BookPage pageNo={i + 4} />
           </div>
         ))}
 
@@ -377,9 +334,7 @@ const Book = () => {
 
         {/*page 20*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page20.jpg" alt="Page 20" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={20} />
         </div>
 
         {/*page 21*/}
@@ -391,9 +346,7 @@ const Book = () => {
 
         {/*page 22*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page22.jpg" alt="Page 22" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={21} />
         </div>
 
         {/*page 23*/}
@@ -405,9 +358,7 @@ const Book = () => {
 
         {/*page 24*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page24.jpg" alt="Page 24" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={24} />
         </div>
 
         {/*page 25*/}
@@ -419,9 +370,7 @@ const Book = () => {
 
         {/*page 26*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page26.jpg" alt="Page 26" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={26} />
         </div>
 
         {/*page 27*/}
@@ -434,9 +383,7 @@ const Book = () => {
 
         {/*page 28*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page28.jpg" alt="Page 28" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={28} />
         </div>
 
         {/*page 29*/}
@@ -448,9 +395,7 @@ const Book = () => {
 
         {/*page 30*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page30.jpg" alt="Page 30" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={30} />
         </div>
 
         {/*page 31*/}
@@ -460,145 +405,39 @@ const Book = () => {
           </div>
         </div>
 
-
         {/*page 32*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page32.jpg" alt="Page 32" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={32} />
         </div>
 
         {/*page 33*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page33.jpg" alt="Page 33" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={33} />
         </div>
-
-
-
 
         {/*page 34 - 52*/}
         {Array.from({ length: 18 }, (_, i) => (
           <div key={i + 34} className="demoPage bg-blue-50 border-1">
-            <div className="flex justify-center items-center w-full h-full">
-              <img src={`/book-pages/page${i + 34}.jpg`} alt={`Page ${i + 34}`} className="w-full h-full object-cover" />
-            </div>
+            <BookPage pageNo={i + 34} />
           </div>
         ))}
-
-
 
         {/*page 52*/}
         {/* Page 52 with clean background and layered beans */}
         <div className="demoPage bg-white border-1 relative overflow-hidden">
-          {/* Clean plate background */}
-          <img
-            src="/beans/clean plate bg.png"
-            alt="Clean Page"
-            className="w-full h-full object-cover absolute inset-0 z-0"
-          />
-
-          {/* Beans - with individual size control */}
-          {[
-            { id: 1, src: "/beans/Layer 1.png", x: 28, y: 30, rotation: 2, width: 90, height: 80 },
-            { id: 2, src: "/beans/Layer 2.png", x: 47, y: 30, rotation: 0, width: 60, height: 80 },
-            { id: 3, src: "/beans/Layer 3.png", x: 60, y: 30, rotation: 3, width: 75, height: 90 },
-            { id: 4, src: "/beans/Layer 4.png", x: 28, y: 44, rotation: 2, width: 60, height: 80 },
-            { id: 5, src: "/beans/Layer 5.png", x: 40, y: 40, rotation: -5, width: 70, height: 80 },
-            { id: 6, src: "/beans/Layer 6.png", x: 55, y: 45, rotation: -3, width: 77, height: 53 },
-            { id: 7, src: "/beans/Layer 7.png", x: 56, y: 54, rotation: 1, width: 72, height: 80 },
-            { id: 8, src: "/beans/Layer 8.png", x: 52, y: 66, rotation: 90, width: 55, height: 90 },
-            { id: 9, src: "/beans/Layer 9.png", x: 41, y: 53.5, rotation: 3, width: 70, height: 90 },
-            { id: 10, src: "/beans/Layer 10.png", x: 29, y: 60, rotation: 1, width: 70, height: 80 },
-          ].map(bean => {
-            const isClicked = clickedBeans.includes(bean.id);
-            return (
-
-              <AnimatePresence>
-                return !isClicked &&
-                <motion.img
-                  key={`bean-${bean.id}`}
-                  src={bean.src}
-                  alt={`Bean ${bean.id}`}
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: isClicked ? 0 : 1 }}
-
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1 }}
-                  onClick={() => {
-                    if (!isClicked) {
-                      setClickedBeans((prev) => [...prev, bean.id]);
-                    }
-                  }}
-                  style={{
-                    left: `${bean.x}%`,
-                    top: `${bean.y}%`,
-                    width: `${bean.width}px`,
-                    height: `${bean.height}px`,
-                    transform: `rotate(${bean.rotation}deg)`,
-                    zIndex: 10,
-                  }}
-                  className="absolute cursor-pointer"
-                />
-              </AnimatePresence>
-
-            )
-          })}
+          <SpillTheBeansFirstPage clickedBeans={clickedBeans} setClickedBeans={setClickedBeans} />
 
         </div>
 
-
         {/*page 53*/}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page53.jpg" alt="Page 53" className="w-full h-full object-cover" />
-            {[
-              { id: 1, src: "/beans/Layer 1.png", x: 28, y: 30, rotation: 2, width: 90, height: 80 },
-              { id: 2, src: "/beans/Layer 2.png", x: 47, y: 30, rotation: 0, width: 60, height: 80 },
-              { id: 3, src: "/beans/Layer 3.png", x: 60, y: 30, rotation: 3, width: 75, height: 90 },
-              { id: 4, src: "/beans/Layer 4.png", x: 28, y: 44, rotation: 2, width: 60, height: 80 },
-              { id: 5, src: "/beans/Layer 5.png", x: 40, y: 40, rotation: -5, width: 70, height: 80 },
-              { id: 6, src: "/beans/Layer 6.png", x: 55, y: 45, rotation: -3, width: 77, height: 53 },
-              { id: 7, src: "/beans/Layer 7.png", x: 56, y: 54, rotation: 1, width: 72, height: 80 },
-              { id: 8, src: "/beans/Layer 8.png", x: 52, y: 66, rotation: 90, width: 55, height: 90 },
-              { id: 9, src: "/beans/Layer 9.png", x: 41, y: 53.5, rotation: 3, width: 70, height: 90 },
-              { id: 10, src: "/beans/Layer 10.png", x: 29, y: 60, rotation: 1, width: 70, height: 80 },
-            ].map(bean => {
-              const isVisible = clickedBeans.includes(bean.id);
-              return (
-                <AnimatePresence>
-                  <motion.img
-                    key={`bean-${bean.id}`}
-                    src={bean.src}
-                    alt={`Bean ${bean.id}`}
-                    initial={{ opacity: 0, scale: 2 }}
-                    animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 2, rotate: bean.rotation }}
-                    exit={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    className={`absolute transition-opacity duration-500 ease-in-out  ${clickedBeans.includes(bean.id) ? "opacity-100" : "opacity-0"}`}
-                    style={{
-                      left: `${bean.x}%`,
-                      top: `${bean.y}%`,
-                      width: `${bean.width}px`,
-                      height: `${bean.height}px`,
-
-                      zIndex: 10,
-                    }}
-                  />
-                </AnimatePresence>
-              )
-            })}
-
-          </div>
+          <SpillTheBeansSecondPage clickedBeans={clickedBeans} />
         </div>
 
         {/*page 54 - 61*/}
         {Array.from({ length: 8 }, (_, i) => (
           <div key={i + 54} className="demoPage bg-blue-50 border-1">
-            <div className="flex justify-center items-center w-full h-full">
-              <img src={`/book-pages/page${i + 54}.jpg`} alt={`Page ${i + 54}`} className="w-full h-full object-cover" />
-            </div>
+            <BookPage pageNo={i + 54} />
           </div>
         ))}
 
@@ -618,9 +457,7 @@ const Book = () => {
         {/*page 64 - 73*/}
         {Array.from({ length: 10 }, (_, i) => (
           <div key={i + 64} className="demoPage bg-blue-50 border-1">
-            <div className="flex justify-center items-center w-full h-full">
-              <img src={`/book-pages/page${i + 64}.jpg`} alt={`Page ${i + 64}`} className="w-full h-full object-cover" />
-            </div>
+            <BookPage pageNo={i + 64} />
           </div>
         ))}
 
@@ -665,12 +502,8 @@ const Book = () => {
           </div>
         </div>
 
-
-
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src="/book-pages/page75.jpg" alt="Page 75" className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={75} />
         </div>
 
         {/*page 76-77 randomizer section*/}
@@ -686,24 +519,12 @@ const Book = () => {
         </div>
 
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full flex-col">
-            <div className="border-1 w-full h-1/3 absolute overflow-hidden top-0" onClick={getRandomNumbers}>
-              <img src={`/book-pages/page${randomNumbers[0]}.jpg`} alt={`Page 77`} className="w-[300%] h-[300%]  relative " />
-            </div>
-            <div className="border-1 w-full h-1/3" onClick={getRandomNumbers1}>
-              <img src={`/book-pages/page${randomNumbers1[1]}.jpg`} alt={`Page 79`} className="w-full h-full object-cover" />
-            </div>
-            <div className="border-1 w-full h-1/3 absolute overflow-hidden bottom-0" onClick={getRandomNumbers2}>
-              <img src={`/book-pages/page${randomNumbers2[2]}.jpg`} alt={`Page 81`} className=" w-[300%] h-[300%] relative bottom-99" />
-            </div>
-          </div>
+          <RandomizerPage />
         </div>
 
         {/*page 78-79 apple eye */}
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            <img src={`/book-pages/page104.jpg`} alt={`Page 104`} className="w-full h-full object-cover" />
-          </div>
+          <BookPage pageNo={78} />
         </div>
 
         <div className="demoPage bg-blue-50 border-1">
@@ -711,9 +532,6 @@ const Book = () => {
             Apple eye picture
           </div>
         </div>
-
-
-
 
       </HTMLFlipBook>
     </div>
