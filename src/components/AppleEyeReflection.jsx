@@ -1,27 +1,40 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const AppleEyeReflection = () => {
+const AppleEyeReflection = ({ currentPage }) => {
   const videoRefLeft = useRef(null);
   const videoRefRight = useRef(null);
+  const [stream, setStream] = useState(null);
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        if (videoRefLeft.current) videoRefLeft.current.srcObject = stream;
-        if (videoRefRight.current) videoRefRight.current.srcObject = stream;
-      })
-      .catch((err) => {
-        console.error("Camera access error:", err);
-      });
+    // Turn ON camera when currentPage >= 77
+    if (currentPage >= 77 && !stream) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((mediaStream) => {
+          setStream(mediaStream);
+          if (videoRefLeft.current) videoRefLeft.current.srcObject = mediaStream;
+          if (videoRefRight.current) videoRefRight.current.srcObject = mediaStream;
+        })
+        .catch((err) => {
+          console.error("Camera access error:", err);
+        });
+    }
 
+    // Turn OFF camera when going back below 77
+    if (currentPage < 77 && stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      setStream(null);
+    }
+
+    // Clean up on unmount
     return () => {
-      if (videoRefLeft.current?.srcObject) {
-        videoRefLeft.current.srcObject.getTracks().forEach((t) => t.stop());
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, []);
-
+  }, [currentPage, stream]);
+  // Don't render video or image before page 77
+  if (currentPage < 77) return null;
   return (
     <div className="relative w-full h-full">
       {/* Full-screen background image */}
