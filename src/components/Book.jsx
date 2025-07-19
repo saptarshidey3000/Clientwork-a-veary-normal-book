@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import BookPage from "./BookPage"
 import RandomizerPage from "./RandomizerPage"
 import { SpillTheBeansFirstPage, SpillTheBeansSecondPage } from "./SpillTheBeans"
+import AppleEyeReflection from "./AppleEyeReflection";
+
 
 const Book = () => {
   const bookRef = useRef(null)
@@ -524,14 +526,12 @@ const Book = () => {
 
         {/*page 78-79 apple eye */}
         <div className="demoPage bg-blue-50 border-1">
-          <BookPage pageNo={78} />
+          <BookPage pageNo={104} />
         </div>
 
         <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            Apple eye picture
-          </div>
-        </div>
+  <AppleEyeReflection />
+</div>
 
       </HTMLFlipBook>
     </div>
