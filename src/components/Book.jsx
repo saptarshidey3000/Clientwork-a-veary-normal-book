@@ -450,10 +450,14 @@ const Book = () => {
           </div>
         </div>
 
-        <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">
-            elephant
-          </div>
+        <div className="demoPage bg-blue-50 border-1 relative overflow-hidden">
+          {/* Background Glass Image - This is the drop target */}
+          <img
+            src="/book-pages/page63.jpg"
+            alt="Page 63"
+            className="page3-background w-full h-full object-cover absolute inset-0 z-0"
+          />
+
         </div>
 
         {/*page 64 - 73*/}
