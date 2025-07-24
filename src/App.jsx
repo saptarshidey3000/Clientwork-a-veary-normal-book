@@ -1,15 +1,13 @@
-import Book from "./components/Book"
-
+// App.jsx
+import Book from "./components/Book";
+import { EarProvider } from "./components/EarContext";
 
 function App() {
-
-
   return (
-    <>
-     
-     <Book/>
-    </>
-  )
+    <EarProvider>
+      <Book />
+    </EarProvider>
+  );
 }
 
-export default App
+export default App;
