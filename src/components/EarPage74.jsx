@@ -15,7 +15,7 @@ const ears = [
 
 const EarPage74 = () => {
   const { setDraggingEar } = useContext(EarContext);
-
+  
   const handleMouseDown = (e, ear, index) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setDraggingEar({
