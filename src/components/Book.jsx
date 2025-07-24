@@ -501,8 +501,10 @@ const Book = () => {
           <BookPage pageNo={104} />
         </div>
         <div className="demoPage bg-blue-50 border-1">
-          <AppleEyeReflection />
+     
+          <AppleEyeReflection currentPage={currentPage} />
         </div>
+
       </HTMLFlipBook>
     </div>
   )
