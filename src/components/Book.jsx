@@ -9,6 +9,10 @@ import AppleEyeReflection from "./AppleEyeReflection"
 import EarPage74 from "./EarPage74"
 import EarDropPage75 from "./EarDropPage75"
 import { EarContext } from "./EarContext"
+import ElephantPage62 from './ElephantPage62';
+import ElephantPage63 from './ElephantPage63';
+
+
 
 const Book = () => {
   const bookRef = useRef(null)
@@ -20,6 +24,8 @@ const Book = () => {
   const dragOffset = useRef({ x: 0, y: 0 })
   const [currentPage, setCurrentPage] = useState(0)
   const [clickedBeans, setClickedBeans] = useState([])
+ const [showMagnifier, setShowMagnifier] = useState(false);
+const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
 
   // Add ear context and drag position state
   const { draggingEar, isEarDragging, setIsEarDragging, setDraggingEar } = useContext(EarContext)
@@ -459,13 +465,26 @@ const Book = () => {
             <BookPage pageNo={i + 54} />
           </div>
         ))}
-        {/*page 62-63 elephant section*/}
-        <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">elephant</div>
-        </div>
-        <div className="demoPage bg-blue-50 border-1">
-          <div className="flex justify-center items-center w-full h-full">elephant</div>
-        </div>
+{/* 🐘 Page 62 - click to activate magnifier */}
+<div className="demoPage bg-blue-50 border-1">
+  <ElephantPage62
+    showMagnifier={showMagnifier}
+    setShowMagnifier={setShowMagnifier}
+    magnifierPosition={magnifierPosition}
+    setMagnifierPosition={setMagnifierPosition}
+  />
+</div>
+
+{/* 🔍 Page 63 - red reveal with magnifier */}
+<div className="demoPage bg-blue-50 border-1">
+  <ElephantPage63
+    showMagnifier={showMagnifier}
+    magnifierPosition={magnifierPosition}
+  />
+</div>
+
+
+
         {/*page 64 - 73*/}
         {Array.from({ length: 10 }, (_, i) => (
           <div key={i + 64} className="demoPage bg-blue-50 border-1">
