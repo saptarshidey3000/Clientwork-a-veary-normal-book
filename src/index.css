@@ -4,3 +4,15 @@ html {
   background-color: #0e1a26;
   position: relative;
 }
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.bounce {
+  animation: bounce 0.8s ease infinite;
+}

@@ -14,12 +14,13 @@ import ElephantPage63 from './ElephantPage63';
 
 
 
+
 const Book = () => {
   const bookRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
   const [glassBreakVisible, setGlassBreakVisible] = useState(false)
   const hammerRef = useRef(null)
-  const [hammerPosition, setHammerPosition] = useState({ x: 10, y: 20 })
+  const [hammerPosition, setHammerPosition] = useState({ x: 39, y: 75 })
   const [isCustomDragging, setIsCustomDragging] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const [currentPage, setCurrentPage] = useState(0)
@@ -27,12 +28,16 @@ const Book = () => {
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
 
+
   // Add ear context and drag position state
   const { draggingEar, isEarDragging, setIsEarDragging, setDraggingEar } = useContext(EarContext)
   const [earDragPosition, setEarDragPosition] = useState({ x: 0, y: 0 })
 
   // Update the combined dragging state
   const isAnyDragging = isDragging || isCustomDragging || isEarDragging
+
+
+
 
   const bounceOffVariant = {
     initial: { opacity: 1, scale: 1, y: 0 },
@@ -46,6 +51,7 @@ const Book = () => {
       },
     },
   }
+
 
   // Safely disable/enable flip book
   const disableFlipBook = useCallback(() => {
@@ -304,6 +310,9 @@ const Book = () => {
         showCover={true}
         onFlip={handleFlip}
         disableFlipByClick={true}
+        useMouseEvents={false}
+
+
       >
         {/* Page 1 */}
         <div className="demoPage bg-blue-50 border-1">
@@ -465,26 +474,12 @@ const Book = () => {
             <BookPage pageNo={i + 54} />
           </div>
         ))}
-        {/* 🐘 Page 62 - click to activate magnifier */}
         <div className="demoPage bg-blue-50 border-1">
-          <ElephantPage62
-            showMagnifier={showMagnifier}
-            setShowMagnifier={setShowMagnifier}
-            magnifierPosition={magnifierPosition}
-            setMagnifierPosition={setMagnifierPosition}
-          />
+          <ElephantPage62 setShowMagnifier={setShowMagnifier} />
         </div>
-
-        {/* 🔍 Page 63 - red reveal with magnifier */}
         <div className="demoPage bg-blue-50 border-1">
-          <ElephantPage63
-            showMagnifier={showMagnifier}
-            magnifierPosition={magnifierPosition}
-          />
+          <ElephantPage63 showMagnifier={showMagnifier} />
         </div>
-
-
-
         {/*page 64 - 73*/}
         {Array.from({ length: 10 }, (_, i) => (
           <div key={i + 64} className={`demoPage bg-blue-50  ${(i + 64) % 2 !== 0 ? "border-l" : ""}`}>
@@ -524,6 +519,22 @@ const Book = () => {
         </div>
 
       </HTMLFlipBook>
+
+      {/* Navigation Buttons */}
+
+      <button
+        className="px-4 py-2 absolute  left-0 w-[20rem] h-[100rem]  max-md:w-[3rem] max-xl:w-[7rem] "
+        onClick={() => bookRef.current.pageFlip().flipPrev()}
+      >
+
+      </button>
+      <button
+        className="px-4 py-2  absolute  right-0 w-[20rem] h-[100rem]  max-md:w-[3rem] max-xl:w-[7rem] "
+        onClick={() => bookRef.current.pageFlip().flipNext()}
+      >
+
+      </button>
+
     </div>
   )
 }
