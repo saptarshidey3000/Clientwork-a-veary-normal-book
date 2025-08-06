@@ -29,13 +29,13 @@ const RandomizerPage = () => {
     };
     return (
         <div className="flex justify-center items-center w-full h-full flex-col">
-            <div className="border-1 w-full h-1/3 absolute overflow-hidden top-0" onClick={getRandomNumbers}>
+            <div className="border-b w-full h-1/3 absolute overflow-hidden top-0" onClick={getRandomNumbers}>
                 <img src={`/book-pages/page${randomNumbers[0]}.jpg`} alt={`Page 77`} className="w-[300%] h-[300%]  relative " />
             </div>
-            <div className="border-1 w-full h-1/3" onClick={getRandomNumbers1}>
+            <div className="border-b w-full h-1/3" onClick={getRandomNumbers1}>
                 <img src={`/book-pages/page${randomNumbers1[1]}.jpg`} alt={`Page 79`} className="w-full h-full object-cover" />
             </div>
-            <div className="border-1 w-full h-1/3 absolute overflow-hidden bottom-0" onClick={getRandomNumbers2}>
+            <div className=" w-full h-1/3 absolute overflow-hidden bottom-0" onClick={getRandomNumbers2}>
                 <img src={`/book-pages/page${randomNumbers2[2]}.jpg`} alt={`Page 81`} className=" w-[300%] h-[300%] relative bottom-99" />
             </div>
         </div>

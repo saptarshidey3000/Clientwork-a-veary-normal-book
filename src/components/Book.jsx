@@ -24,8 +24,8 @@ const Book = () => {
   const dragOffset = useRef({ x: 0, y: 0 })
   const [currentPage, setCurrentPage] = useState(0)
   const [clickedBeans, setClickedBeans] = useState([])
- const [showMagnifier, setShowMagnifier] = useState(false);
-const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
+  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
 
   // Add ear context and drag position state
   const { draggingEar, isEarDragging, setIsEarDragging, setDraggingEar } = useContext(EarContext)
@@ -310,11 +310,11 @@ const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
           <BookPage pageNo={1} />
         </div>
         {/* Page 2 */}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={2} />
         </div>
         {/* Page 3 - Interactive */}
-        <div className="demoPage bg-white border-1 relative overflow-hidden">
+        <div className="demoPage bg-white border-l relative overflow-hidden">
           {/* Background Glass Image - This is the drop target */}
           <img
             src="/book-pages/page3.jpg"
@@ -366,142 +366,142 @@ const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
         </div>
         {/* Pages 4-18 */}
         {Array.from({ length: 15 }, (_, i) => (
-          <div key={i + 4} className="demoPage bg-blue-50 border-1">
+          <div key={i + 4} className={`demoPage bg-blue-50  ${(i + 4) % 2 !== 0 ? "border-l" : ""}`}>
             <BookPage pageNo={i + 4} />
           </div>
         ))}
         {/*page 19*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/CATFISH.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 20*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={20} />
         </div>
         {/*page 21*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/CHEESECAKE.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 22*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={21} />
         </div>
         {/*page 23*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/DOUGHNUT.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 24*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={24} />
         </div>
         {/*page 25*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/EARWORM.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 26*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={26} />
         </div>
         {/*page 27*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/GREYSCALE.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 28*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={28} />
         </div>
         {/*page 29*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/RAINBOW.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 30*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={30} />
         </div>
         {/*page 31*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <div className="flex justify-center items-center w-full h-full">
             <img src="/idioms/JELLYFISH.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
         {/*page 32*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={32} />
         </div>
         {/*page 33*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <BookPage pageNo={33} />
         </div>
         {/*page 34 - 52*/}
         {Array.from({ length: 18 }, (_, i) => (
-          <div key={i + 34} className="demoPage bg-blue-50 border-1">
+          <div key={i + 34} className={`demoPage bg-blue-50  ${(i + 34) % 2 !== 0 ? "border-l" : ""}`}>
             <BookPage pageNo={i + 34} />
           </div>
         ))}
         {/*page 52*/}
         {/* Page 52 with clean background and layered beans */}
-        <div className="demoPage bg-white border-1 relative overflow-hidden">
+        <div className="demoPage bg-white  relative overflow-hidden">
           <SpillTheBeansFirstPage clickedBeans={clickedBeans} setClickedBeans={setClickedBeans} />
         </div>
         {/*page 53*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <SpillTheBeansSecondPage clickedBeans={clickedBeans} />
         </div>
         {/*page 54 - 61*/}
         {Array.from({ length: 8 }, (_, i) => (
-          <div key={i + 54} className="demoPage bg-blue-50 border-1">
+          <div key={i + 54} className={`demoPage bg-blue-50  ${(i + 54) % 2 !== 0 ? "border-l" : ""}`}>
             <BookPage pageNo={i + 54} />
           </div>
         ))}
-{/* 🐘 Page 62 - click to activate magnifier */}
-<div className="demoPage bg-blue-50 border-1">
-  <ElephantPage62
-    showMagnifier={showMagnifier}
-    setShowMagnifier={setShowMagnifier}
-    magnifierPosition={magnifierPosition}
-    setMagnifierPosition={setMagnifierPosition}
-  />
-</div>
+        {/* 🐘 Page 62 - click to activate magnifier */}
+        <div className="demoPage bg-blue-50 border-1">
+          <ElephantPage62
+            showMagnifier={showMagnifier}
+            setShowMagnifier={setShowMagnifier}
+            magnifierPosition={magnifierPosition}
+            setMagnifierPosition={setMagnifierPosition}
+          />
+        </div>
 
-{/* 🔍 Page 63 - red reveal with magnifier */}
-<div className="demoPage bg-blue-50 border-1">
-  <ElephantPage63
-    showMagnifier={showMagnifier}
-    magnifierPosition={magnifierPosition}
-  />
-</div>
+        {/* 🔍 Page 63 - red reveal with magnifier */}
+        <div className="demoPage bg-blue-50 border-1">
+          <ElephantPage63
+            showMagnifier={showMagnifier}
+            magnifierPosition={magnifierPosition}
+          />
+        </div>
 
 
 
         {/*page 64 - 73*/}
         {Array.from({ length: 10 }, (_, i) => (
-          <div key={i + 64} className="demoPage bg-blue-50 border-1">
+          <div key={i + 64} className={`demoPage bg-blue-50  ${(i + 64) % 2 !== 0 ? "border-l" : ""}`}>
             <BookPage pageNo={i + 64} />
           </div>
         ))}
         {/*page 74-75 ear section*/}
         {/* 🧠 Page 74 - draggable ears */}
-        <div className="demoPage bg-[#fdf1d7] border-1">
+        <div className="demoPage bg-[#fdf1d7] ">
           <EarPage74 setIsDragging={setIsDragging} />
         </div>
         {/* 🧍 Page 75 - drop target (human body) */}
-        <div className="demoPage bg-[#fdf1d7] border-1">
+        <div className="demoPage bg-[#fdf1d7] border-l">
           <EarDropPage75 />
         </div>
         {/*page 76-77 randomizer section*/}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <div className="flex justify-center items-center w-full h-full">
             {/* <button
               onClick={getRandomNumbers}
@@ -511,14 +511,14 @@ const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
             </button> */}
           </div>
         </div>
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
           <RandomizerPage />
         </div>
         {/*page 78-79 apple eye */}
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={104} />
         </div>
-        <div className="demoPage bg-blue-50 border-1">
+        <div className="demoPage bg-blue-50 border-l">
 
           <AppleEyeReflection currentPage={currentPage} />
         </div>
