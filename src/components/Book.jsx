@@ -397,7 +397,7 @@ const Book = () => {
         </div>
         {/*page 22*/}
         <div className="demoPage bg-blue-50 ">
-          <BookPage pageNo={21} />
+          <BookPage pageNo={22} />
         </div>
         {/*page 23*/}
         <div className="demoPage bg-blue-50 border-l">
