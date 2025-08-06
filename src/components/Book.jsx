@@ -517,6 +517,11 @@ const Book = () => {
 
           <AppleEyeReflection currentPage={currentPage} />
         </div>
+        {Array.from({ length: 3 }, (_, i) => (
+          <div key={i + 106} className={`demoPage bg-blue-50  ${(i + 54) % 2 !== 0 ? "border-l" : ""}`}>
+            <BookPage pageNo={i + 106} />
+          </div>
+        ))}
 
       </HTMLFlipBook>
 
