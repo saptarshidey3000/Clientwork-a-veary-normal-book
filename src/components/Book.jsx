@@ -466,26 +466,12 @@ const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
             <BookPage pageNo={i + 54} />
           </div>
         ))}
-{/* 🐘 Page 62 - click to activate magnifier */}
-<div className="demoPage bg-blue-50 border-1">
-  <ElephantPage62
-    showMagnifier={showMagnifier}
-    setShowMagnifier={setShowMagnifier}
-    magnifierPosition={magnifierPosition}
-    setMagnifierPosition={setMagnifierPosition}
-  />
-</div>
-
-{/* 🔍 Page 63 - red reveal with magnifier */}
-<div className="demoPage bg-blue-50 border-1">
-  <ElephantPage63
-    showMagnifier={showMagnifier}
-    magnifierPosition={magnifierPosition}
-  />
-</div>
-
-
-
+ <div className="demoPage bg-blue-50 border-1">
+        <ElephantPage62 setShowMagnifier={setShowMagnifier} />
+      </div>
+      <div className="demoPage bg-blue-50 border-1">
+        <ElephantPage63 showMagnifier={showMagnifier} />
+      </div>
         {/*page 64 - 73*/}
         {Array.from({ length: 10 }, (_, i) => (
           <div key={i + 64} className="demoPage bg-blue-50 border-1">
