@@ -1,12 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
-
+import React, { useRef, useState, useEffect } from "react";
 
 const ElephantPage63 = ({ showMagnifier }) => {
   const ref = useRef(null);
   const [magnifierPosition, setMagnifierPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [showElephant, setShowElephant] = useState(false);
-
 
   const elephantBounds = {
     x: 355,
@@ -15,21 +13,28 @@ const ElephantPage63 = ({ showMagnifier }) => {
     height: 80,
   };
 
-  // Handle start of drag
-  const handleMouseDown = (e) => {
+  const getEventPosition = (e) => {
+    if (e.touches && e.touches.length > 0) {
+      return { clientX: e.touches[0].clientX, clientY: e.touches[0].clientY };
+    }
+    return { clientX: e.clientX, clientY: e.clientY };
+  };
+
+  const handleStart = (e) => {
     if (!showMagnifier) return;
     e.preventDefault();
     setDragging(true);
-
   };
 
-  // Handle drag movement
-  const handleMouseMove = (e) => {
+  const handleMove = (e) => {
     if (!dragging || !showMagnifier || !ref.current) return;
 
+    e.preventDefault();
+    const { clientX, clientY } = getEventPosition(e);
+
     const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
     // Clamp inside the container
     const clampedX = Math.max(60, Math.min(x, rect.width - 60));
@@ -50,30 +55,34 @@ const ElephantPage63 = ({ showMagnifier }) => {
     }
   };
 
-  // Stop dragging
-  const handleMouseUp = () => {
+  const handleEnd = () => {
     setDragging(false);
-
   };
 
   useEffect(() => {
     if (dragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener("mousemove", handleMove);
+      window.addEventListener("mouseup", handleEnd);
+      window.addEventListener("touchmove", handleMove, { passive: false });
+      window.addEventListener("touchend", handleEnd);
     } else {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleEnd);
     }
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleEnd);
     };
   }, [dragging]);
 
   return (
     <div
       ref={ref}
-      className="w-full h-full relative overflow-hidden select-none"
+      className="w-full h-full relative overflow-hidden select-none touch-none"
     >
       {/* Background base image */}
       <img
@@ -127,7 +136,8 @@ const ElephantPage63 = ({ showMagnifier }) => {
             left: magnifierPosition.x - 60,
             top: magnifierPosition.y - 60,
           }}
-          onMouseDown={handleMouseDown}
+          onMouseDown={handleStart}
+          onTouchStart={handleStart}
           alt="Magnifier Frame"
           draggable={false}
         />
@@ -137,4 +147,3 @@ const ElephantPage63 = ({ showMagnifier }) => {
 };
 
 export default ElephantPage63;
-
