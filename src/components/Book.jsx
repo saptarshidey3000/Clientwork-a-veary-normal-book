@@ -12,6 +12,9 @@ import { EarContext } from "./EarContext"
 import ElephantPage62 from './ElephantPage62';
 import ElephantPage63 from './ElephantPage63';
 
+
+
+
 const Book = () => {
   const bookRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -35,6 +38,9 @@ const Book = () => {
   // Update the combined dragging state
   const isAnyDragging = isDragging || isCustomDragging || isEarDragging
 
+
+
+
   const bounceOffVariant = {
     initial: { opacity: 1, scale: 1, y: 0 },
     exit: {
@@ -47,6 +53,7 @@ const Book = () => {
       },
     },
   }
+
 
   // Safely disable/enable flip book
   const disableFlipBook = useCallback(() => {
@@ -583,7 +590,9 @@ setTimeout(() => {
         className="px-4 py-2  absolute  right-0 w-[20rem] h-[100rem]  max-md:w-[3rem] max-xl:w-[7rem] "
         onClick={() => bookRef.current.pageFlip().flipNext()}
       >
+
       </button>
+
     </div>
   )
 }

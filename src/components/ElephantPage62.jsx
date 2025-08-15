@@ -1,10 +1,13 @@
 import React from 'react';
 
+
+
 const ElephantPage62 = ({ setShowMagnifier }) => {
+
   return (
     <div
       className="w-full h-full relative"
-      onClick={() => setShowMagnifier(true)}
+      onClick={() => { setShowMagnifier(true) }}
     >
       <img
         src="/Elephant-in-the-Room/normalpage.png"

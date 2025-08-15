@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from "react";
 
 const ElephantPage63 = ({ showMagnifier }) => {
   const ref = useRef(null);
-  const [magnifierPosition, setMagnifierPosition] = useState({ x: 0, y: 0 });
+  const [magnifierPosition, setMagnifierPosition] = useState({ x: 100, y: 100 });
+  const [dragging, setDragging] = useState(false);
   const [showElephant, setShowElephant] = useState(false);
 
-  // Adjust this based on elephant's location
   const elephantBounds = {
     x: 355,
     y: 345,
@@ -13,20 +13,41 @@ const ElephantPage63 = ({ showMagnifier }) => {
     height: 80,
   };
 
-  const handleMouseMove = (e) => {
+  const getEventPosition = (e) => {
+    if (e.touches && e.touches.length > 0) {
+      return { clientX: e.touches[0].clientX, clientY: e.touches[0].clientY };
+    }
+    return { clientX: e.clientX, clientY: e.clientY };
+  };
+
+  const handleStart = (e) => {
     if (!showMagnifier) return;
+    e.preventDefault();
+    setDragging(true);
+  };
+
+  const handleMove = (e) => {
+    if (!dragging || !showMagnifier || !ref.current) return;
+
+    e.preventDefault();
+    const { clientX, clientY } = getEventPosition(e);
 
     const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMagnifierPosition({ x, y });
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
-    // Check if magnifier is over the elephant
+    // Clamp inside the container
+    const clampedX = Math.max(60, Math.min(x, rect.width - 60));
+    const clampedY = Math.max(60, Math.min(y, rect.height - 60));
+
+    setMagnifierPosition({ x: clampedX, y: clampedY });
+
+    // Show elephant if magnifier is over it
     if (
-      x >= elephantBounds.x &&
-      x <= elephantBounds.x + elephantBounds.width &&
-      y >= elephantBounds.y &&
-      y <= elephantBounds.y + elephantBounds.height
+      clampedX >= elephantBounds.x &&
+      clampedX <= elephantBounds.x + elephantBounds.width &&
+      clampedY >= elephantBounds.y &&
+      clampedY <= elephantBounds.y + elephantBounds.height
     ) {
       setShowElephant(true);
     } else {
@@ -34,11 +55,34 @@ const ElephantPage63 = ({ showMagnifier }) => {
     }
   };
 
+  const handleEnd = () => {
+    setDragging(false);
+  };
+
+  useEffect(() => {
+    if (dragging) {
+      window.addEventListener("mousemove", handleMove);
+      window.addEventListener("mouseup", handleEnd);
+      window.addEventListener("touchmove", handleMove, { passive: false });
+      window.addEventListener("touchend", handleEnd);
+    } else {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleEnd);
+    }
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleEnd);
+    };
+  }, [dragging]);
+
   return (
     <div
       ref={ref}
-      className="w-full h-full relative overflow-hidden"
-      onMouseMove={handleMouseMove}
+      className="w-full h-full relative overflow-hidden select-none touch-none"
     >
       {/* Background base image */}
       <img
@@ -54,12 +98,12 @@ const ElephantPage63 = ({ showMagnifier }) => {
         alt="Scribble"
       />
 
-      {/* Magnifier red reveal clipped inside circle */}
+      {/* Red reveal clipped circle */}
       {showMagnifier && (
         <div
           className="absolute w-full h-full pointer-events-none z-20"
           style={{
-            clipPath: `circle(60px at ${magnifierPosition.x}px ${magnifierPosition.y}px)`,
+            clipPath: `circle(53px at ${magnifierPosition.x}px ${magnifierPosition.y}px)`,
           }}
         >
           <img
@@ -70,7 +114,7 @@ const ElephantPage63 = ({ showMagnifier }) => {
         </div>
       )}
 
-      {/* Elephant reveal */}
+      {/* Elephant image */}
       {showElephant && (
         <img
           src="/Elephant-in-the-Room/elephant.png"
@@ -83,16 +127,19 @@ const ElephantPage63 = ({ showMagnifier }) => {
         />
       )}
 
-      {/* Magnifier frame on top */}
+      {/* Draggable magnifier frame */}
       {showMagnifier && (
         <img
           src="/Elephant-in-the-Room/magnifier - without the red-min.png"
-          className="absolute w-[120px] h-[120px] pointer-events-none z-40"
+          className="absolute w-[120px] h-[200px] z-40 cursor-grab"
           style={{
             left: magnifierPosition.x - 60,
             top: magnifierPosition.y - 60,
           }}
+          onMouseDown={handleStart}
+          onTouchStart={handleStart}
           alt="Magnifier Frame"
+          draggable={false}
         />
       )}
     </div>
