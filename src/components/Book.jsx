@@ -283,7 +283,7 @@ setTimeout(() => {
     [isCustomDragging, enableFlipBook, hammerPosition],
   )
 
-  // Add global mouse/touch end handlers for ears
+ 
   const handleGlobalMouseUp = useCallback(() => {
     if (draggingEar) {
       setDraggingEar(null)
