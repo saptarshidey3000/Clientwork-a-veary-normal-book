@@ -360,7 +360,7 @@ const Book = () => {
         ref={bookRef}
         className="absolute inset-0 m-auto"
         width={500}
-        height={600}
+        height={650}
         size="fixed"
         drawShadow={true}
         maxShadowOpacity={0.5}
@@ -391,7 +391,7 @@ const Book = () => {
               <img
                 src="/book-pages/glass crack.gif"
                 alt="Glass Breaking"
-                className="w-[73%] h-[33%] mx-auto top-57 relative"
+                className="w-[73%] h-[31%] mx-auto top-63 relative"
                 style={{
                   opacity: 1,
                 }}

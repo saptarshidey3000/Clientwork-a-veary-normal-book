@@ -28,17 +28,38 @@ const RandomizerPage = () => {
         setRandomNumbers2(selected);
     };
     return (
-        <div className="flex justify-center items-center w-full h-full flex-col">
-            <div className="border-b w-full h-1/3 absolute overflow-hidden top-0" onClick={getRandomNumbers}>
-                <img src={`/book-pages/page${randomNumbers[0]}.jpg`} alt={`Page 77`} className="w-[300%] h-[300%]  relative " />
+        <div className="flex flex-col w-full h-full">
+            {/* Top Part */}
+            <div className="w-full h-1/3 overflow-hidden cursor-pointer relative" onClick={getRandomNumbers}>
+                <img
+                    src={`/book-pages/page${randomNumbers[0]}.jpg`}
+                    alt={`Page ${randomNumbers[0]}`}
+                    className="w-full relative"
+                    style={{ height: "300%", top: "0%" }} // show top section
+                />
             </div>
-            <div className="border-b w-full h-1/3" onClick={getRandomNumbers1}>
-                <img src={`/book-pages/page${randomNumbers1[1]}.jpg`} alt={`Page 79`} className="w-full h-full object-cover" />
+
+            {/* Middle Part */}
+            <div className="w-full h-1/3 overflow-hidden cursor-pointer relative" onClick={getRandomNumbers1}>
+                <img
+                    src={`/book-pages/page${randomNumbers1[1]}.jpg`}
+                    alt={`Page ${randomNumbers1[1]}`}
+                    className="w-full relative"
+                    style={{ height: "300%", top: "-100%" }} // move up to show middle
+                />
             </div>
-            <div className=" w-full h-1/3 absolute overflow-hidden bottom-0" onClick={getRandomNumbers2}>
-                <img src={`/book-pages/page${randomNumbers2[2]}.jpg`} alt={`Page 81`} className=" w-[300%] h-[300%] relative bottom-99" />
+
+            {/* Bottom Part */}
+            <div className="w-full h-1/3 overflow-hidden cursor-pointer relative" onClick={getRandomNumbers2}>
+                <img
+                    src={`/book-pages/page${randomNumbers2[2]}.jpg`}
+                    alt={`Page ${randomNumbers2[2]}`}
+                    className="w-full relative"
+                    style={{ height: "300%", top: "-200%" }} // move up to show bottom
+                />
             </div>
         </div>
+
     )
 }
 
