@@ -11,6 +11,7 @@ import EarDropPage75 from "./EarDropPage75"
 import { EarContext } from "./EarContext"
 import ElephantPage62 from './ElephantPage62';
 import ElephantPage63 from './ElephantPage63';
+import EggPage from "./EggPage"
 
 
 
@@ -148,34 +149,34 @@ const Book = () => {
           ) {
             console.log("Hammer touched the glass image!")
             setGlassBreakVisible(true)
-            
+
             // Store current hammer position where it broke the glass
             const currentLeft = parseFloat(hammerRef.current.style.left) || hammerPosition.x
             const currentTop = parseFloat(hammerRef.current.style.top) || hammerPosition.y
             setHammerBreakPosition({ x: currentLeft, y: currentTop })
-            
-            // Return to original position after 5 seconds
-           // Hide glass break animation after GIF completes (approximately 2-3 seconds)
-setTimeout(() => {
-  setGlassBreakVisible(false)
-}, 3000) // Adjust this timing based on your GIF duration
 
-// Return hammer to original position after glass animation disappears
-setTimeout(() => {
-  if (hammerRef.current) {
-    hammerRef.current.style.transition = 'left 1s ease-in-out, top 1s ease-in-out'
-    hammerRef.current.style.left = `${hammerPosition.x}%`
-    hammerRef.current.style.top = `${hammerPosition.y}%`
-    
-    // Reset after animation
-    setTimeout(() => {
-      if (hammerRef.current) {
-        hammerRef.current.style.transition = ''
-      }
-      setHammerBreakPosition(null)
-    }, 1000)
-  }
-}, 3500) // Start hammer return 500ms after GIF disappears
+            // Return to original position after 5 seconds
+            // Hide glass break animation after GIF completes (approximately 2-3 seconds)
+            setTimeout(() => {
+              setGlassBreakVisible(false)
+            }, 3000) // Adjust this timing based on your GIF duration
+
+            // Return hammer to original position after glass animation disappears
+            setTimeout(() => {
+              if (hammerRef.current) {
+                hammerRef.current.style.transition = 'left 1s ease-in-out, top 1s ease-in-out'
+                hammerRef.current.style.left = `${hammerPosition.x}%`
+                hammerRef.current.style.top = `${hammerPosition.y}%`
+
+                // Reset after animation
+                setTimeout(() => {
+                  if (hammerRef.current) {
+                    hammerRef.current.style.transition = ''
+                  }
+                  setHammerBreakPosition(null)
+                }, 1000)
+              }
+            }, 3500) // Start hammer return 500ms after GIF disappears
           }
         }
       }
@@ -254,34 +255,34 @@ setTimeout(() => {
           ) {
             console.log("Hammer touched the glass image via touch!")
             setGlassBreakVisible(true)
-            
+
             // Store current hammer position where it broke the glass
             const currentLeft = parseFloat(hammerRef.current.style.left) || hammerPosition.x
             const currentTop = parseFloat(hammerRef.current.style.top) || hammerPosition.y
             setHammerBreakPosition({ x: currentLeft, y: currentTop })
-            
+
             // Return to original position after 5 seconds
             // Hide glass break animation after GIF completes (approximately 2-3 seconds)
-setTimeout(() => {
-  setGlassBreakVisible(false)
-}, 3000) // Adjust this timing based on your GIF duration
+            setTimeout(() => {
+              setGlassBreakVisible(false)
+            }, 3000) // Adjust this timing based on your GIF duration
 
-// Return hammer to original position after glass animation disappears
-setTimeout(() => {
-  if (hammerRef.current) {
-    hammerRef.current.style.transition = 'left 1s ease-in-out, top 1s ease-in-out'
-    hammerRef.current.style.left = `${hammerPosition.x}%`
-    hammerRef.current.style.top = `${hammerPosition.y}%`
-    
-    // Reset after animation
-    setTimeout(() => {
-      if (hammerRef.current) {
-        hammerRef.current.style.transition = ''
-      }
-      setHammerBreakPosition(null)
-    }, 1000)
-  }
-}, 3500) // Start hammer return 500ms after GIF disappears
+            // Return hammer to original position after glass animation disappears
+            setTimeout(() => {
+              if (hammerRef.current) {
+                hammerRef.current.style.transition = 'left 1s ease-in-out, top 1s ease-in-out'
+                hammerRef.current.style.left = `${hammerPosition.x}%`
+                hammerRef.current.style.top = `${hammerPosition.y}%`
+
+                // Reset after animation
+                setTimeout(() => {
+                  if (hammerRef.current) {
+                    hammerRef.current.style.transition = ''
+                  }
+                  setHammerBreakPosition(null)
+                }, 1000)
+              }
+            }, 3500) // Start hammer return 500ms after GIF disappears
           }
         }
       }
@@ -290,7 +291,7 @@ setTimeout(() => {
     [isCustomDragging, enableFlipBook, hammerPosition],
   )
 
- 
+
   const handleGlobalMouseUp = useCallback(() => {
     if (draggingEar) {
       setDraggingEar(null)
@@ -410,13 +411,12 @@ setTimeout(() => {
               ref={hammerRef}
               src="/book-pages/hammer.png"
               alt="Hammer"
-              className={`draggable-hammer absolute w-20 z-20  ${
-                isDragging && !hammerBreakPosition 
-                  ? "cursor-grabbing scale-130 " 
-                  : !hammerBreakPosition 
-                    ? "cursor-grab hover:scale-105"
-                    : ""
-              }`}
+              className={`draggable-hammer absolute w-20 z-20  ${isDragging && !hammerBreakPosition
+                ? "cursor-grabbing scale-130 "
+                : !hammerBreakPosition
+                  ? "cursor-grab hover:scale-105"
+                  : ""
+                }`}
               style={{
                 left: hammerBreakPosition ? `${hammerBreakPosition.x}%` : `${hammerPosition.x}%`,
                 top: hammerBreakPosition ? `${hammerBreakPosition.y}%` : `${hammerPosition.y}%`,
@@ -502,20 +502,73 @@ setTimeout(() => {
             <img src="/idioms/JELLYFISH.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
+
         {/*page 32*/}
         <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={32} />
         </div>
+
         {/*page 33*/}
         <div className="demoPage bg-blue-50 border-l">
-          <BookPage pageNo={33} />
+          <EggPage />
         </div>
+
         {/*page 34 - 52*/}
-        {Array.from({ length: 18 }, (_, i) => (
+        {Array.from({ length: 10 }, (_, i) => (
           <div key={i + 34} className={`demoPage bg-blue-50  ${(i + 34) % 2 !== 0 ? "border-l" : ""}`}>
             <BookPage pageNo={i + 34} />
           </div>
         ))}
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle2.gif`} alt="Page 44" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle3.gif`} alt="Page 45" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={46} />
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={47} />
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle4.gif`} alt="Page 45" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle1.gif`} alt="Page 45" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={50} />
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={51} />
+        </div>
+
+
         {/*page 52*/}
         {/* Page 52 with clean background and layered beans */}
         <div className="demoPage bg-white  relative overflow-hidden">
@@ -555,12 +608,7 @@ setTimeout(() => {
         {/*page 76-77 randomizer section*/}
         <div className="demoPage bg-blue-50 ">
           <div className="flex justify-center items-center w-full h-full">
-            {/* <button
-              onClick={getRandomNumbers}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Randomize
-            </button> */}
+            <img src={`/randomizerLeft.png`} alt="Page 1" className="w-full h-full object-cover" />
           </div>
         </div>
         <div className="demoPage bg-blue-50 border-l">
