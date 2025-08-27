@@ -547,7 +547,7 @@ const Book = () => {
         <div className="demoPage bg-blue-50 ">
           <div className="flex justify-center items-center w-full h-full">
 
-            <img src={`/cycle-gif/cycle4.gif`} alt="Page 45" className="w-full h-full object-cover" />
+            <img src={`/cycle-gif/cycle4.gif`} alt="Page 48" className="w-full h-full object-cover" />
 
           </div>
         </div>
@@ -555,7 +555,7 @@ const Book = () => {
         <div className="demoPage bg-blue-50 ">
           <div className="flex justify-center items-center w-full h-full">
 
-            <img src={`/cycle-gif/cycle1.gif`} alt="Page 45" className="w-full h-full object-cover" />
+            <img src={`/cycle-gif/cycle1.gif`} alt="Page 49" className="w-full h-full object-cover" />
 
           </div>
         </div>

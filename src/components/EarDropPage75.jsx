@@ -14,36 +14,36 @@ const dropTargets = [
 ]
 
 const EarDropPage75 = () => {
-  const { 
-    draggingEar, 
-    setDraggingEar, 
-    placedEars, 
-    setPlacedEars, 
-    setIsEarDragging 
+  const {
+    draggingEar,
+    setDraggingEar,
+    placedEars,
+    setPlacedEars,
+    setIsEarDragging
   } = useContext(EarContext)
   const pageRef = useRef(null)
 
   const findNearestDropTarget = useCallback((mouseX, mouseY, rect) => {
     const relativeX = ((mouseX - rect.left) / rect.width) * 100
     const relativeY = ((mouseY - rect.top) / rect.height) * 100
-    
+
     let nearestTarget = null
     let minDistance = Infinity
-    
+
     dropTargets.forEach((target, index) => {
       const isOccupied = placedEars.some(ear => ear.targetIndex === index)
       if (isOccupied) return
-      
+
       const distance = Math.sqrt(
         Math.pow(relativeX - target.x, 2) + Math.pow(relativeY - target.y, 2)
       )
-      
+
       if (distance < minDistance && distance < 15) { // 15% threshold
         minDistance = distance
         nearestTarget = { ...target, targetIndex: index }
       }
     })
-    
+
     return nearestTarget
   }, [placedEars])
 
@@ -65,7 +65,7 @@ const EarDropPage75 = () => {
         }
       ])
     }
-    
+
     setDraggingEar(null)
     setIsEarDragging(false)
   }, [draggingEar, findNearestDropTarget, setPlacedEars, setDraggingEar, setIsEarDragging])
@@ -89,7 +89,7 @@ const EarDropPage75 = () => {
         }
       ])
     }
-    
+
     setDraggingEar(null)
     setIsEarDragging(false)
   }, [draggingEar, findNearestDropTarget, setPlacedEars, setDraggingEar, setIsEarDragging])
@@ -111,7 +111,7 @@ const EarDropPage75 = () => {
       {draggingEar && dropTargets.map((target, index) => {
         const isOccupied = placedEars.some(ear => ear.targetIndex === index)
         if (isOccupied) return null
-        
+
         return (
           <div
             key={index}
@@ -140,16 +140,7 @@ const EarDropPage75 = () => {
         />
       ))}
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center z-30">
-        <div className="bg-white/90 px-4 py-2 rounded-full shadow-lg border">
-          <p className="text-sm text-gray-700 font-medium">
-            {placedEars.length === 0 
-              ? "Drop ears from the previous page here!"
-              : `${placedEars.length} ear${placedEars.length !== 1 ? 's' : ''} placed`
-            }
-          </p>
-        </div>
-      </div>
+
     </div>
   )
 }
