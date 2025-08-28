@@ -1,6 +1,8 @@
 import { useContext } from "react"
 import { EarContext } from "./EarContext";  // ✅ Correct import
 
+
+
 const ears = [
   { id: 23, src: "/ears/Layer 23.png" },
   { id: 22, src: "/ears/Layer 22.png" },
@@ -14,8 +16,9 @@ const ears = [
 ];
 
 const EarPage74 = () => {
-  const { setDraggingEar } = useContext(EarContext);
-  
+
+  const { setDraggingEar, placedEars } = useContext(EarContext);
+
   const handleMouseDown = (e, ear, index) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setDraggingEar({
@@ -46,6 +49,17 @@ const EarPage74 = () => {
             draggable={false}
           />
         ))}
+      </div>
+
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center z-30">
+        <div className="bg-white/90 px-4 py-2 rounded-full shadow-lg border">
+          <p className="text-sm text-gray-700 font-medium">
+            {placedEars.length === 0
+              ? "Drop ears from the previous page here!"
+              : `${placedEars.length} ear${placedEars.length !== 1 ? 's' : ''} placed`
+            }
+          </p>
+        </div>
       </div>
     </div>
   );

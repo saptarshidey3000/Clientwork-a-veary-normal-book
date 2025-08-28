@@ -11,6 +11,10 @@ import EarDropPage75 from "./EarDropPage75"
 import { EarContext } from "./EarContext"
 import ElephantPage62 from './ElephantPage62';
 import ElephantPage63 from './ElephantPage63';
+import EggPage from "./EggPage"
+
+
+
 
 const Book = () => {
   const bookRef = useRef(null)
@@ -119,7 +123,7 @@ const Book = () => {
       setIsCustomDragging(false)
       setIsDragging(false)
       // Check if dropped anywhere on the glass image (page3.jpg)
-      const page3Background = document.querySelector(".page3-background")
+      const page3Background = document.querySelector(".glass-overlay")
       console.log(page3Background.getBoundingClientRect())
       if (page3Background) {
         const backgroundRect = page3Background.getBoundingClientRect()
@@ -134,41 +138,14 @@ const Book = () => {
           const adjustedRight = 1217.36
           // Check if hammer touches any part of the glass image
           if (
-            hammerCenterX >= adjustedLeft &&
-            hammerCenterX <= adjustedRight &&
-            hammerCenterY >= adjustedTop &&
-            hammerCenterY <= adjustedBottom
+            hammerCenterX >= backgroundRect.left &&
+            hammerCenterX <= backgroundRect.right &&
+            hammerCenterY >= backgroundRect.top &&
+            hammerCenterY <= backgroundRect.bottom
           ) {
             console.log("Hammer touched the glass image!")
             setGlassBreakVisible(true)
-            
-            // Store current hammer position where it broke the glass
-            const currentLeft = parseFloat(hammerRef.current.style.left) || hammerPosition.x
-            const currentTop = parseFloat(hammerRef.current.style.top) || hammerPosition.y
-            setHammerBreakPosition({ x: currentLeft, y: currentTop })
-            
-            // Return to original position after 5 seconds
-           // Hide glass break animation after GIF completes (approximately 2-3 seconds)
-setTimeout(() => {
-  setGlassBreakVisible(false)
-}, 3000) // Adjust this timing based on your GIF duration
-
-// Return hammer to original position after glass animation disappears
-setTimeout(() => {
-  if (hammerRef.current) {
-    hammerRef.current.style.transition = 'left 1s ease-in-out, top 1s ease-in-out'
-    hammerRef.current.style.left = `${hammerPosition.x}%`
-    hammerRef.current.style.top = `${hammerPosition.y}%`
-    
-    // Reset after animation
-    setTimeout(() => {
-      if (hammerRef.current) {
-        hammerRef.current.style.transition = ''
-      }
-      setHammerBreakPosition(null)
-    }, 1000)
-  }
-}, 3500) // Start hammer return 500ms after GIF disappears
+            // Glass crack stays visible - no auto-hide
           }
         }
       }
@@ -231,7 +208,7 @@ setTimeout(() => {
       setIsCustomDragging(false)
       setIsDragging(false)
       // Check if dropped anywhere on the glass image
-      const page3Background = document.querySelector(".page3-background")
+      const page3Background = document.querySelector(".glass-overlay")
       if (page3Background) {
         const backgroundRect = page3Background.getBoundingClientRect()
         const hammerElement = document.querySelector(".draggable-hammer")
@@ -247,34 +224,7 @@ setTimeout(() => {
           ) {
             console.log("Hammer touched the glass image via touch!")
             setGlassBreakVisible(true)
-            
-            // Store current hammer position where it broke the glass
-            const currentLeft = parseFloat(hammerRef.current.style.left) || hammerPosition.x
-            const currentTop = parseFloat(hammerRef.current.style.top) || hammerPosition.y
-            setHammerBreakPosition({ x: currentLeft, y: currentTop })
-            
-            // Return to original position after 5 seconds
-            // Hide glass break animation after GIF completes (approximately 2-3 seconds)
-setTimeout(() => {
-  setGlassBreakVisible(false)
-}, 3000) // Adjust this timing based on your GIF duration
-
-// Return hammer to original position after glass animation disappears
-setTimeout(() => {
-  if (hammerRef.current) {
-    hammerRef.current.style.transition = 'left 1s ease-in-out, top 1s ease-in-out'
-    hammerRef.current.style.left = `${hammerPosition.x}%`
-    hammerRef.current.style.top = `${hammerPosition.y}%`
-    
-    // Reset after animation
-    setTimeout(() => {
-      if (hammerRef.current) {
-        hammerRef.current.style.transition = ''
-      }
-      setHammerBreakPosition(null)
-    }, 1000)
-  }
-}, 3500) // Start hammer return 500ms after GIF disappears
+            // Glass crack stays visible - no auto-hide
           }
         }
       }
@@ -283,7 +233,7 @@ setTimeout(() => {
     [isCustomDragging, enableFlipBook, hammerPosition],
   )
 
- 
+  // Add global mouse/touch end handlers for ears
   const handleGlobalMouseUp = useCallback(() => {
     if (draggingEar) {
       setDraggingEar(null)
@@ -352,7 +302,7 @@ setTimeout(() => {
         ref={bookRef}
         className="absolute inset-0 m-auto"
         width={500}
-        height={600}
+        height={650}
         size="fixed"
         drawShadow={true}
         maxShadowOpacity={0.5}
@@ -378,50 +328,57 @@ setTimeout(() => {
             className="page3-background w-full h-full object-cover absolute inset-0 z-0"
           />
           {/* Full Page Glass Break Animation - Replaces entire page when cracked */}
+
+          <div className="absolute inset-0 z-10 pointer-events-none ">
+            <div
+
+              className="w-[73%] h-[31%] mx-auto top-63 relative  glass-overlay"
+              style={{
+                opacity: 0,
+              }}
+            />
+          </div>
           {glassBreakVisible && (
             <div className="absolute inset-0 z-10 pointer-events-none ">
               <img
                 src="/book-pages/glass crack.gif"
                 alt="Glass Breaking"
-                className="w-[73%] h-[33%] mx-auto top-57 relative"
+                className="w-[73%] h-[31%] mx-auto top-63 relative"
                 style={{
                   opacity: 1,
                 }}
               />
             </div>
           )}
-          {/* Interactive Zone - Always visible now to show hammer even when glass is cracked */}
-          <div
-            className="interactive-zone absolute inset-0 z-60"
-            onMouseDown={handleInteractiveZoneEvents}
-            onTouchStart={handleInteractiveZoneEvents}
-            onMouseMove={handleInteractiveZoneEvents}
-            onTouchMove={handleInteractiveZoneEvents}
-          >
-            {/* Draggable Hammer - Always visible but with conditional interactivity */}
-            <img
-              ref={hammerRef}
-              src="/book-pages/hammer.png"
-              alt="Hammer"
-              className={`draggable-hammer absolute w-20 z-20  ${
-                isDragging && !hammerBreakPosition 
-                  ? "cursor-grabbing scale-130 " 
-                  : !hammerBreakPosition 
-                    ? "cursor-grab hover:scale-105"
-                    : ""
-              }`}
-              style={{
-                left: hammerBreakPosition ? `${hammerBreakPosition.x}%` : `${hammerPosition.x}%`,
-                top: hammerBreakPosition ? `${hammerBreakPosition.y}%` : `${hammerPosition.y}%`,
-                userSelect: "none",
-                WebkitUserSelect: "none",
-                pointerEvents: hammerBreakPosition ? "none" : "auto",
-                filter: isDragging ? "none" : "none",
-              }}
-              onMouseDown={!hammerBreakPosition ? handleHammerMouseDown : undefined}
-              onTouchStart={!hammerBreakPosition ? handleTouchStart : undefined}
-            />
-          </div>
+          {/* Interactive Zone - Only visible when glass is NOT cracked */}
+          {!glassBreakVisible && (
+            <div
+              className="interactive-zone absolute inset-0 z-5"
+              onMouseDown={handleInteractiveZoneEvents}
+              onTouchStart={handleInteractiveZoneEvents}
+              onMouseMove={handleInteractiveZoneEvents}
+              onTouchMove={handleInteractiveZoneEvents}
+            >
+              {/* Draggable Hammer */}
+              <img
+                ref={hammerRef}
+                src="/book-pages/hammer.png"
+                alt="Hammer"
+                className={`draggable-hammer absolute w-20 z-20  ${isDragging ? "cursor-grabbing scale-130 " : "cursor-grab hover:scale-105"
+                  }`}
+                style={{
+                  left: `${hammerPosition.x}%`,
+                  top: `${hammerPosition.y}%`,
+                  userSelect: "none",
+                  WebkitUserSelect: "none",
+                  pointerEvents: "auto",
+                  filter: isDragging ? "none" : "none",
+                }}
+                onMouseDown={handleHammerMouseDown}
+                onTouchStart={handleTouchStart}
+              />
+            </div>
+          )}
         </div>
         {/* Pages 4-18 */}
         {Array.from({ length: 15 }, (_, i) => (
@@ -495,20 +452,73 @@ setTimeout(() => {
             <img src="/idioms/JELLYFISH.gif" alt="Page 19" className="w-full h-full object-cover" />
           </div>
         </div>
+
         {/*page 32*/}
         <div className="demoPage bg-blue-50 ">
           <BookPage pageNo={32} />
         </div>
+
         {/*page 33*/}
         <div className="demoPage bg-blue-50 border-l">
-          <BookPage pageNo={33} />
+          <EggPage />
         </div>
+
         {/*page 34 - 52*/}
-        {Array.from({ length: 18 }, (_, i) => (
+        {Array.from({ length: 10 }, (_, i) => (
           <div key={i + 34} className={`demoPage bg-blue-50  ${(i + 34) % 2 !== 0 ? "border-l" : ""}`}>
             <BookPage pageNo={i + 34} />
           </div>
         ))}
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle2.gif`} alt="Page 44" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle3.gif`} alt="Page 45" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={46} />
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={47} />
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle4.gif`} alt="Page 48" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <div className="flex justify-center items-center w-full h-full">
+
+            <img src={`/cycle-gif/cycle1.gif`} alt="Page 49" className="w-full h-full object-cover" />
+
+          </div>
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={50} />
+        </div>
+
+        <div className="demoPage bg-blue-50 ">
+          <BookPage pageNo={51} />
+        </div>
+
+
         {/*page 52*/}
         {/* Page 52 with clean background and layered beans */}
         <div className="demoPage bg-white  relative overflow-hidden">
@@ -548,12 +558,7 @@ setTimeout(() => {
         {/*page 76-77 randomizer section*/}
         <div className="demoPage bg-blue-50 ">
           <div className="flex justify-center items-center w-full h-full">
-            {/* <button
-              onClick={getRandomNumbers}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Randomize
-            </button> */}
+            <img src={`/randomizerLeft.png`} alt="Page 1" className="w-full h-full object-cover" />
           </div>
         </div>
         <div className="demoPage bg-blue-50 border-l">
