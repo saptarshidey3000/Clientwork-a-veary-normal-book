@@ -127,7 +127,7 @@ const Book = () => {
       setIsCustomDragging(false)
       setIsDragging(false)
       // Check if dropped anywhere on the glass image (page3.jpg)
-      const page3Background = document.querySelector(".page3-background")
+      const page3Background = document.querySelector(".glass-overlay")
       console.log(page3Background.getBoundingClientRect())
       if (page3Background) {
         const backgroundRect = page3Background.getBoundingClientRect()
@@ -142,10 +142,10 @@ const Book = () => {
           const adjustedRight = 1217.36
           // Check if hammer touches any part of the glass image
           if (
-            hammerCenterX >= adjustedLeft &&
-            hammerCenterX <= adjustedRight &&
-            hammerCenterY >= adjustedTop &&
-            hammerCenterY <= adjustedBottom
+            hammerCenterX >= backgroundRect.left &&
+            hammerCenterX <= backgroundRect.right &&
+            hammerCenterY >= backgroundRect.top &&
+            hammerCenterY <= backgroundRect.bottom
           ) {
             console.log("Hammer touched the glass image!")
             setGlassBreakVisible(true)
@@ -239,7 +239,7 @@ const Book = () => {
       setIsCustomDragging(false)
       setIsDragging(false)
       // Check if dropped anywhere on the glass image
-      const page3Background = document.querySelector(".page3-background")
+      const page3Background = document.querySelector(".glass-overlay")
       if (page3Background) {
         const backgroundRect = page3Background.getBoundingClientRect()
         const hammerElement = document.querySelector(".draggable-hammer")
@@ -386,6 +386,16 @@ const Book = () => {
             className="page3-background w-full h-full object-cover absolute inset-0 z-0"
           />
           {/* Full Page Glass Break Animation - Replaces entire page when cracked */}
+
+          <div className="absolute inset-0 z-10 pointer-events-none ">
+            <div
+
+              className="w-[73%] h-[31%] mx-auto top-63 relative  glass-overlay"
+              style={{
+                opacity: 0,
+              }}
+            />
+          </div>
           {glassBreakVisible && (
             <div className="absolute inset-0 z-10 pointer-events-none ">
               <img
