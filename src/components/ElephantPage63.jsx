@@ -5,13 +5,14 @@ const ElephantPage63 = ({ showMagnifier }) => {
   const [magnifierPosition, setMagnifierPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [showElephant, setShowElephant] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
-  const elephantBounds = {
-    x: 355,
-    y: 345,
-    width: 80,
-    height: 80,
-  };
+  // const elephantBounds = {
+  //   x: 355,
+  //   y: 345,
+  //   width: 80,
+  //   height: 80,
+  // };
 
   const getEventPosition = (e) => {
     if (e.touches && e.touches.length > 0) {
@@ -21,8 +22,22 @@ const ElephantPage63 = ({ showMagnifier }) => {
   };
 
   const handleStart = (e) => {
-    if (!showMagnifier) return;
+    if (!showMagnifier || !ref.current) return;
     e.preventDefault();
+
+    const { clientX, clientY } = getEventPosition(e);
+    const rect = ref.current.getBoundingClientRect();
+
+    // Current top-left of magnifier
+    const magLeft = magnifierPosition.x - 60;
+    const magTop = magnifierPosition.y - 60;
+
+    // Calculate offset of cursor inside the magnifier
+    setDragOffset({
+      x: clientX - rect.left - magLeft,
+      y: clientY - rect.top - magTop,
+    });
+
     setDragging(true);
   };
 
@@ -31,10 +46,11 @@ const ElephantPage63 = ({ showMagnifier }) => {
 
     e.preventDefault();
     const { clientX, clientY } = getEventPosition(e);
-
     const rect = ref.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
+
+    // Position adjusted with drag offset
+    const x = clientX - rect.left - dragOffset.x + 60;
+    const y = clientY - rect.top - dragOffset.y + 60;
 
     // Clamp inside the container
     const clampedX = Math.max(60, Math.min(x, rect.width - 60));
@@ -106,9 +122,16 @@ const ElephantPage63 = ({ showMagnifier }) => {
             clipPath: `circle(53px at ${magnifierPosition.x}px ${magnifierPosition.y}px)`,
           }}
         >
+          {/* Base inside clip to prevent white box */}
+          <img
+            src="/Elephant-in-the-Room/normalpage.png"
+            className="w-full h-full object-cover absolute"
+            alt="Base"
+          />
+          {/* Red overlay */}
           <img
             src="/Elephant-in-the-Room/redimage.png"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover absolute"
             alt="Red Reveal"
           />
         </div>
