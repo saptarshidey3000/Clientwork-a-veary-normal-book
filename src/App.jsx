@@ -40,7 +40,7 @@ function App() {
       <EarProvider>
         <Book />
       </EarProvider>
-      {loading ? <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-gradient-to-r from-[#939E53] to-[#BDD6DA] absolute z-10 top-0" > <Loader /> </div>
+      {loading ? <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-[#9cb9b7] absolute z-10 top-0" > <Loader /> </div>
         : <></>}
 
     </>

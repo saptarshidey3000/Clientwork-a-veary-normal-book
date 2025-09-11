@@ -389,7 +389,7 @@ const Book = () => {
 
   return (
 <div
-  className="w-[100vw] h-[100vh] flex justify-center items-center overflow-hidden relative bg-gradient-to-r from-[#939E53] to-[#BDD6DA]"
+className="w-[100vw] h-[100vh] flex justify-center items-center overflow-hidden relative bg-[#9cb9b7]"
   onMouseMove={handleMouseMove}
   onMouseUp={handleMouseUp}
   onTouchMove={handleTouchMove}
