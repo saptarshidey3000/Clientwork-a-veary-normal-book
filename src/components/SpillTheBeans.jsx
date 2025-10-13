@@ -26,7 +26,7 @@ const SpillTheBeansFirstPage = ({ clickedBeans, setClickedBeans }) => {
                 const isClicked = clickedBeans.includes(bean.id);
                 return (
 
-                    <AnimatePresence>
+                    <AnimatePresence key={`bean-${bean.id}`}>
                         return !isClicked &&
                         <motion.img
                             key={`bean-${bean.id}`}
@@ -78,25 +78,25 @@ const SpillTheBeansSecondPage = ({ clickedBeans }) => {
             ].map(bean => {
                 const isVisible = clickedBeans.includes(bean.id);
                 return (
-                    <AnimatePresence>
+                    <AnimatePresence key={`bean-${bean.id}`}>
                         <motion.img
                             key={`bean-${bean.id}`}
                             src={bean.src}
                             alt={`Bean ${bean.id}`}
-                            initial={{ 
-                                opacity: 0, 
+                            initial={{
+                                opacity: 0,
                                 scale: 0.5,
                                 y: -120,
                                 rotate: bean.rotation + 270
                             }}
-                            animate={{ 
-                                opacity: isVisible ? 1 : 0, 
+                            animate={{
+                                opacity: isVisible ? 1 : 0,
                                 scale: isVisible ? 1 : 0.5,
                                 y: isVisible ? 0 : -120,
                                 rotate: bean.rotation
                             }}
                             exit={{ opacity: 1 }}
-                            transition={{ 
+                            transition={{
                                 duration: 0.9,
                                 type: "spring",
                                 stiffness: 120,

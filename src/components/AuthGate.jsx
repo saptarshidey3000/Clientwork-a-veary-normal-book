@@ -7,7 +7,7 @@ const AuthGate = ({ onSuccess }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const correctCode = "1234"; // Client's code
+    const correctCode = "5624"; // Client's code
 
     if (code === correctCode) {
       onSuccess(); // Grant access

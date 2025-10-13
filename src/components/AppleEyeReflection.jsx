@@ -41,7 +41,7 @@ const AppleEyeReflection = ({ currentPage }) => {
       <img
         src="/book-pages/appleofeye.png"
         alt="Apple Eye Background"
-        className="absolute inset-0 w-full h-full object-cover z-20"
+        className="absolute inset-0 w-full h-full object-cover z-20 "
       />
 
       {/* Left eye */}
@@ -52,7 +52,7 @@ const AppleEyeReflection = ({ currentPage }) => {
         playsInline
         className="absolute w-[70px] h-[60px] object-cover border-2 border-white z-10"
         style={{
-          left: "18%",
+          left: "21%",
           top: "44%",
           transform: "translate(-50%, -50%)",
           borderRadius: "50% / 40%", // squash shape
@@ -61,7 +61,7 @@ const AppleEyeReflection = ({ currentPage }) => {
 
       {/* Right eye */}
       <video
-        ref={videoRefRight}
+        ref={videoRefRight} s
         autoPlay
         muted
         playsInline

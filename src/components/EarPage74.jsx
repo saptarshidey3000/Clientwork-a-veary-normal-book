@@ -1,7 +1,5 @@
-import { useContext } from "react"
+import { useContext } from "react";
 import { EarContext } from "./EarContext";  // ✅ Correct import
-
-
 
 const ears = [
   { id: 23, src: "/ears/Layer 23.png" },
@@ -16,8 +14,7 @@ const ears = [
 ];
 
 const EarPage74 = () => {
-
-  const { setDraggingEar, placedEars } = useContext(EarContext);
+  const { setDraggingEar } = useContext(EarContext);
 
   const handleMouseDown = (e, ear, index) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -29,38 +26,69 @@ const EarPage74 = () => {
     });
   };
 
+  const rows = [
+    ears.slice(0, 3), // 1st row → 3 ears
+    ears.slice(3, 7), // 2nd row → 4 ears
+    ears.slice(7, 9), // 3rd row → 2 ears
+  ];
+
   return (
     <div className="relative w-full h-full">
+      {/* Background */}
       <img
         src="/ears/clean plate bg.png"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
-      <div className="absolute top-1/2 left-1/2 w-[70%] h-[60%] -translate-x-1/2 -translate-y-1/2">
-        {ears.map((ear, index) => (
-          <img
-            key={ear.id}
-            src={ear.src}
-            onMouseDown={(e) => handleMouseDown(e, ear, index)}
-            className="absolute w-10 h-auto cursor-grab active:cursor-grabbing"
-            style={{
-              left: `${(index % 3) * 30}%`,
-              top: `${Math.floor(index / 3) * 35}%`,
-            }}
-            draggable={false}
-          />
-        ))}
+
+      {/* Ear grid */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 space-y-5 grid gap-y-10">
+        {/* Row 1 → slightly left */}
+        <div className="flex justify-start gap-8">
+          {rows[0].map((ear, index) => (
+            <img
+              key={ear.id}
+              src={ear.src}
+              onMouseDown={(e) => handleMouseDown(e, ear, index)}
+              className="w-10 h-auto cursor-grab active:cursor-grabbing"
+              draggable={false}
+            />
+          ))}
+        </div>
+
+        {/* Row 2 → normal center */}
+        <div className="flex justify-center gap-8">
+          {rows[1].map((ear, index) => (
+            <img
+              key={ear.id}
+              src={ear.src}
+              onMouseDown={(e) => handleMouseDown(e, ear, index)}
+              className="w-10 h-auto cursor-grab active:cursor-grabbing"
+              draggable={false}
+            />
+          ))}
+        </div>
+
+        {/* Row 3 → wider gap */}
+        <div className="flex justify-center gap-12">
+          {rows[2].map((ear, index) => (
+            <img
+              key={ear.id}
+              src={ear.src}
+              onMouseDown={(e) => handleMouseDown(e, ear, index)}
+              className="w-10 h-auto cursor-grab active:cursor-grabbing"
+              draggable={false}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center z-30">
-        <div className="bg-white/90 px-4 py-2 rounded-full shadow-lg border">
-          <p className="text-sm text-gray-700 font-medium">
-            {/* {placedEars.length === 0
-              ? "Drag the ears to any desired part of the body"
-              : `${placedEars.length} ear${placedEars.length !== 1 ? 's' : ''} placed` */}
-            {/* } */}
-            Drag the ears  to any desired part of the body
-          </p>
-        </div>
+      {/* Instruction image at bottom */}
+      <div className="absolute bottom-15 left-1/2 -translate-x-1/2 z-30">
+        <img
+          src="/prompts/ears.png"
+          alt="Tap and place"
+          className="w-[110px] h-auto"
+        />
       </div>
     </div>
   );

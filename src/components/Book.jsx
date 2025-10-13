@@ -21,7 +21,7 @@ const Book = () => {
   const [isDragging, setIsDragging] = useState(false)
   const [glassBreakVisible, setGlassBreakVisible] = useState(false)
   const hammerRef = useRef(null)
-  const [hammerPosition, setHammerPosition] = useState({ x: 39, y: 75 })
+  const [hammerPosition, setHammerPosition] = useState({ x: 45, y: 72 })
   const [isCustomDragging, setIsCustomDragging] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const [currentPage, setCurrentPage] = useState(0)
@@ -158,10 +158,10 @@ const Book = () => {
             hammerCenterY <= backgroundRect.bottom
           ) {
             console.log("Hammer touched the glass image!")
-            
+
             // Play glass breaking sound
             playGlassBreakSound()
-            
+
             setGlassBreakVisible(true)
 
             // Store current hammer position where it broke the glass
@@ -219,7 +219,7 @@ const Book = () => {
   // --- Touch start for hammer ---
   const handleHammerTouchStart = useCallback((e) => {
     if (!hammerRef.current) return
-    e.preventDefault()
+
 
     const touch = e.touches[0]
     const rect = hammerRef.current.getBoundingClientRect()
@@ -237,7 +237,7 @@ const Book = () => {
   // --- Touch move for hammer ---
   const handleHammerTouchMove = useCallback((e) => {
     if (!isCustomDragging || !hammerRef.current) return
-    e.preventDefault()
+
     e.stopPropagation()
 
     const touch = e.touches[0]
@@ -308,10 +308,10 @@ const Book = () => {
             hammerCenterY <= backgroundRect.bottom
           ) {
             console.log("Hammer touched the glass image via touch!")
-            
+
             // Play glass breaking sound
             playGlassBreakSound()
-            
+
             setGlassBreakVisible(true)
 
             // Store current hammer position where it broke the glass
@@ -388,26 +388,26 @@ const Book = () => {
   )
 
   return (
-<div
-className="w-[100vw] h-[100vh] flex justify-center items-center overflow-hidden relative bg-[#9cb9b7]"
-  onMouseMove={handleMouseMove}
-  onMouseUp={handleMouseUp}
-  onTouchMove={handleTouchMove}
-  onTouchEnd={handleTouchEnd}
->
-{/* Left Arrow */}
-<img
-  src="/background/Arrow Icon 2 white .png"
-  alt="Left Arrow"
-  className="absolute left-12 top-1/2 transform -translate-y-1/2 w-10 h-10 cursor-pointer"
-/>
+    <div
+      className="w-[100vw] h-[100vh] flex justify-center items-center overflow-hidden relative bg-[#9cb9b7]"
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Left Arrow */}
+      <img
+        src="/background/Arrow Icon 2 white .png"
+        alt="Left Arrow"
+        className="absolute left-12 top-1/2 transform -translate-y-1/2 w-10 h-10 cursor-pointer"
+      />
 
-{/* Right Arrow */}
-<img
-  src="/background/Arrow Icon 2 white .png"
-  alt="Right Arrow"
-  className="absolute right-12 top-1/2 transform -translate-y-1/2 rotate-180 w-10 h-10 cursor-pointer"
-/>
+      {/* Right Arrow */}
+      <img
+        src="/background/Arrow Icon 2 white .png"
+        alt="Right Arrow"
+        className="absolute right-12 top-1/2 transform -translate-y-1/2 rotate-180 w-10 h-10 cursor-pointer"
+      />
 
 
 
@@ -495,7 +495,7 @@ className="w-[100vw] h-[100vh] flex justify-center items-center overflow-hidden 
               ref={hammerRef}
               src="/book-pages/hammer.png"
               alt="Hammer"
-              className={`draggable-hammer absolute w-20 z-20  ${isDragging && !hammerBreakPosition
+              className={`draggable-hammer relative w-12 z-20  ${isDragging && !hammerBreakPosition
                 ? "cursor-grabbing scale-130 "
                 : !hammerBreakPosition
                   ? "cursor-grab hover:scale-105"
@@ -657,9 +657,21 @@ className="w-[100vw] h-[100vh] flex justify-center items-center overflow-hidden 
 
         {/*page 52*/}
         {/* Page 52 with clean background and layered beans */}
-        <div className="demoPage bg-white  relative overflow-hidden">
-          <SpillTheBeansFirstPage clickedBeans={clickedBeans} setClickedBeans={setClickedBeans} />
-        </div>
+<div className="demoPage bg-white relative overflow-hidden">
+  <SpillTheBeansFirstPage
+    clickedBeans={clickedBeans}
+    setClickedBeans={setClickedBeans}
+  />
+
+  {/* Beans image at the bottom */}
+  <img
+    src="/prompts/beans.png"
+    alt="Beans"
+    className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[120px] h-auto"
+  />
+</div>
+
+
         {/*page 53*/}
         <div className="demoPage bg-blue-50 border-l">
           <SpillTheBeansSecondPage clickedBeans={clickedBeans} />
